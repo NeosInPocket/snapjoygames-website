@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SnapJoy Games — We make games that hit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FFFBF0;
+    --bg-2:#FFF4D1;
+    --ink:#1E2230;
+    --ink-2:#2A2F40;
+    --muted:#6B6F7E;
+    --yellow:#FFD23F;
+    --yellow-deep:#F2A900;
+    --yellow-soft:#FFE88A;
+    --spark:#ffffff;
+    --line:rgba(30,34,48,.12);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;cursor:none}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:-.01em}
+
+  /* ====== Grain overlay ====== */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.35;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.15 0 0 0 0.15 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ====== Custom cursor ====== */
+  .cursor{position:fixed;left:0;top:0;width:28px;height:28px;pointer-events:none;z-index:100;transform:translate(-50%,-50%);transition:transform .12s ease, opacity .2s}
+  .cursor svg{width:100%;height:100%;filter:drop-shadow(0 2px 6px rgba(242,169,0,.55))}
+  .cursor.hover{transform:translate(-50%,-50%) scale(1.6) rotate(22deg)}
+  .cursor-dot{position:fixed;left:0;top:0;width:6px;height:6px;border-radius:50%;background:var(--ink);pointer-events:none;z-index:101;transform:translate(-50%,-50%);transition:opacity .2s}
+  @media (hover:none){ html,body{cursor:auto} .cursor,.cursor-dot{display:none} }
+
+  /* ====== Nav ====== */
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:16px 32px;backdrop-filter:blur(14px);background:rgba(255,251,240,.55);border-bottom:1px solid transparent;transition:border-color .3s, background .3s}
+  nav.top.scrolled{border-color:var(--line);background:rgba(255,251,240,.82)}
+  nav .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;letter-spacing:-.01em;justify-self:start}
+  nav .brand .mark{width:38px;height:38px;display:grid;place-items:center}
+  nav .brand .mark img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(242,169,0,.4))}
+  nav .wordmark{justify-self:center;font-weight:700;font-size:clamp(18px,1.8vw,26px);letter-spacing:.22em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:14px;white-space:nowrap}
+  nav .wordmark .dot-sep{width:6px;height:6px;border-radius:50%;background:var(--yellow-deep);box-shadow:0 0 0 3px rgba(242,169,0,.2)}
+  nav .links{display:flex;gap:6px;justify-self:end}
+  nav .links a{padding:8px 14px;font-size:14px;border-radius:999px;color:var(--ink-2);transition:background .2s, color .2s}
+  nav .links a:hover{background:var(--ink);color:var(--yellow)}
+  nav .right{display:flex;align-items:center;gap:10px;justify-self:end}
+  nav .left-group{display:flex;align-items:center;gap:14px}
+  .lang{display:flex;background:rgba(30,34,48,.06);border-radius:999px;padding:3px;font-size:12px;font-weight:600}
+  .lang button{border:0;background:transparent;padding:6px 12px;border-radius:999px;cursor:none;color:var(--muted);font-family:inherit;font-weight:600;letter-spacing:.04em}
+  .lang button.on{background:var(--ink);color:var(--yellow)}
+  .btn-wishlist{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--yellow);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;border:0;cursor:none;transition:transform .15s, box-shadow .2s}
+  .btn-wishlist:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(30,34,48,.55)}
+  .btn-wishlist .dot{width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 0 rgba(255,210,63,.8);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,210,63,.7)}70%{box-shadow:0 0 0 10px rgba(255,210,63,0)}100%{box-shadow:0 0 0 0 rgba(255,210,63,0)}}
+
+  /* ====== Hero ====== */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 48px 80px;overflow:hidden}
+  .hero .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.6;pointer-events:none}
+  .hero .blob.a{width:520px;height:520px;background:var(--yellow);top:-120px;right:-80px}
+  .hero .blob.b{width:380px;height:380px;background:var(--yellow-soft);bottom:-140px;left:-120px;opacity:.5}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;width:100%;max-width:1360px;margin:0 auto;align-items:center;z-index:2}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(30,34,48,.06);border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+  .eyebrow .pip{width:8px;height:8px;border-radius:50%;background:var(--yellow-deep)}
+  h1.huge{font-size:clamp(56px,8.2vw,128px);font-weight:700;line-height:.92;letter-spacing:-.04em;margin:20px 0 8px}
+  h1.huge .hit{position:relative;display:inline-block;color:var(--ink);background:linear-gradient(180deg,transparent 55%,var(--yellow) 55%);padding:0 6px;transform:rotate(-1.2deg)}
+  h1.huge .star{display:inline-block;vertical-align:-12%;margin:0 6px}
+  .hero .sub{font-size:20px;line-height:1.45;color:var(--ink-2);max-width:520px;margin:24px 0 36px}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:14px;font-weight:600;font-size:15px;border:0;cursor:none;transition:transform .15s, box-shadow .2s, background .2s}
+  .btn.primary{background:var(--ink);color:var(--yellow);box-shadow:0 12px 28px -16px rgba(30,34,48,.7)}
+  .btn.primary:hover{transform:translateY(-2px);background:#000}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--yellow)}
+  .stats{display:flex;gap:36px;margin-top:56px;flex-wrap:wrap}
+  .stat .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .stat .v{font-size:34px;font-weight:700;letter-spacing:-.02em}
+
+  /* ====== 3D logo stage ====== */
+  .logo-stage{position:relative;height:min(620px,70vh);display:grid;place-items:center;perspective:1200px}
+  .logo-3d{width:min(460px,80%);aspect-ratio:1;position:relative}
+  .logo-3d img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 40px 40px rgba(242,169,0,.35)) drop-shadow(0 80px 60px rgba(30,34,48,.15))}
+  .orbit{position:absolute;inset:0;pointer-events:none}
+  .orbit .token{position:absolute;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--ink);background:rgba(255,251,240,.85);padding:7px 12px;border-radius:999px;border:1px solid var(--line);backdrop-filter:blur(4px);box-shadow:0 6px 16px -8px rgba(30,34,48,.25);white-space:nowrap}
+  .orbit .token.t1{top:18%;right:-10%}
+  .orbit .token.t2{bottom:22%;left:-8%;background:var(--ink);color:var(--yellow);border-color:transparent}
+  .orbit .token.t3{bottom:6%;right:-4%}
+
+  /* floating sparkles */
+  .sparkle{position:absolute;width:22px;height:22px;opacity:.8}
+  .sparkle.s1{top:12%;left:40%;animation:float var(--float-dur,6s) ease-in-out infinite}
+  .sparkle.s2{bottom:22%;right:10%;animation:float var(--float-dur,7.5s) ease-in-out -1s infinite}
+  .sparkle.s3{top:40%;right:30%;animation:float var(--float-dur,5.2s) ease-in-out -2s infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(20deg)}}
+
+  /* ====== Marquee ====== */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink);color:var(--yellow);overflow:hidden;padding:18px 0;position:relative;z-index:1}
+  .marquee .track{display:flex;gap:56px;white-space:nowrap;animation:scroll var(--marquee-dur,40s) linear infinite;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:15px;letter-spacing:.06em}
+  .marquee .track span{display:inline-flex;align-items:center;gap:56px}
+  .marquee .star-inline{display:inline-block;width:14px;height:14px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ====== Section scaffold ====== */
+  section.slab{position:relative;padding:140px 48px}
+  .wrap{max-width:1360px;margin:0 auto;position:relative}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:56px}
+  .section-head h2{font-size:clamp(44px,6vw,92px);font-weight:700;letter-spacing:-.035em;line-height:.95;margin:16px 0 0;max-width:780px}
+  .section-head .idx{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  .section-head .meta{font-size:14px;color:var(--muted);max-width:320px;line-height:1.5}
+
+  /* ====== Anvil Saga ====== */
+  #games{background:var(--bg)}
+  .game-card{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:0;border-radius:28px;overflow:hidden;background:var(--ink);color:var(--bg);isolation:isolate;box-shadow:0 40px 60px -40px rgba(30,34,48,.35)}
+  .game-card .art{position:relative;overflow:hidden;background:var(--ink);min-height:100%}
+  .game-card .art img{width:100%;height:100%;object-fit:contain;transition:transform .8s cubic-bezier(.2,.7,.2,1);transform:scale(1.01)}
+  .game-card:hover .art img{transform:scale(1.04)}
+  .game-card .art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,rgba(30,34,48,.9) 99%);pointer-events:none}
+  .game-card .body{padding:48px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+  .game-card .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,210,63,.15);color:var(--yellow);border-radius:999px;width:fit-content}
+  .game-card h3{font-size:clamp(40px,5vw,68px);font-weight:700;letter-spacing:-.03em;line-height:.95;margin:18px 0 12px}
+  .game-card p.desc{color:rgba(255,251,240,.7);line-height:1.5;font-size:16px;max-width:460px}
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:28px 0 0;border-top:1px solid rgba(255,251,240,.12)}
+  .metrics .m{padding:22px 16px;border-right:1px solid rgba(255,251,240,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .metrics .m:last-child{border-right:0}
+  .metrics .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,251,240,.5);margin-bottom:8px}
+  .metrics .v{font-size:28px;font-weight:700;letter-spacing:-.02em;color:var(--yellow);line-height:1}
+  .metrics .v.plain{color:var(--bg);font-size:20px}
+  .game-cta{display:flex;gap:10px;align-items:center}
+  .btn.steam{background:var(--yellow);color:var(--ink);padding:12px 20px;border-radius:12px;font-weight:600;cursor:none}
+  .btn.steam:hover{background:#fff;transform:translateY(-1px)}
+  .btn.ghost-dark{background:transparent;color:var(--bg);border:1.5px solid rgba(255,251,240,.25);padding:12px 20px;border-radius:12px;font-weight:600}
+  .btn.ghost-dark:hover{border-color:var(--yellow);color:var(--yellow)}
+
+  /* ====== Derailed (next) ====== */
+  #next{background:var(--bg)}
+  .derailed{position:relative;border-radius:28px;overflow:hidden;background:var(--ink);color:var(--bg);display:grid;grid-template-columns:1.1fr 1fr;gap:0;min-height:640px;box-shadow:0 40px 60px -40px rgba(30,34,48,.35)}
+  .derailed .poster{position:relative;overflow:hidden;background:#0A0A0F}
+  .derailed .poster img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+  .derailed:hover .poster img{transform:scale(1.04)}
+  .derailed .poster::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(30,34,48,.95) 100%);pointer-events:none}
+  .derailed .poster .badge{position:absolute;top:22px;left:22px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(10,10,15,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,210,63,.28);border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow)}
+  .derailed .poster .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);animation:pulse 1.8s infinite}
+  .derailed .body{padding:56px 52px;display:flex;flex-direction:column;gap:26px}
+  .derailed .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,210,63,.15);color:var(--yellow);border-radius:999px;width:fit-content}
+  .derailed h3{font-size:clamp(46px,5.5vw,74px);font-weight:700;letter-spacing:-.035em;line-height:.95;margin:6px 0 0;color:var(--bg)}
+  .derailed .subtitle{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,210,63,.8);margin-top:-2px}
+  .derailed p.lead{color:rgba(255,251,240,.78);font-size:16px;line-height:1.6;max-width:520px;margin:0;text-wrap:pretty}
+
+  /* Timeline */
+  .timeline{position:relative;margin-top:8px;padding-top:6px}
+  .timeline .track{position:absolute;left:10px;right:10px;top:16px;height:2px;background:rgba(255,251,240,.12);border-radius:2px;z-index:0}
+  .timeline .fill{position:absolute;left:10px;top:16px;height:2px;background:var(--yellow);border-radius:2px;z-index:1;width:38%;box-shadow:0 0 12px rgba(255,210,63,.6)}
+  .timeline .steps{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0;z-index:2}
+  .timeline .step{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+  .timeline .step .node{width:22px;height:22px;border-radius:50%;background:var(--ink);border:2px solid rgba(255,251,240,.2);display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:9px;color:rgba(255,251,240,.5);font-weight:700}
+  .timeline .step.done .node{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+  .timeline .step.current .node{background:var(--ink);border-color:var(--yellow);color:var(--yellow);box-shadow:0 0 0 4px rgba(255,210,63,.18), 0 0 18px rgba(255,210,63,.45);animation:nodePulse 2.4s ease-in-out infinite}
+  @keyframes nodePulse{0%,100%{box-shadow:0 0 0 4px rgba(255,210,63,.18), 0 0 18px rgba(255,210,63,.45)}50%{box-shadow:0 0 0 7px rgba(255,210,63,.08), 0 0 24px rgba(255,210,63,.7)}}
+  .timeline .step .label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,251,240,.5);text-align:center;line-height:1.35;max-width:110px}
+  .timeline .step.done .label{color:rgba(255,251,240,.75)}
+  .timeline .step.current .label{color:var(--yellow);font-weight:700}
+
+  .derailed-meta{display:flex;gap:28px;flex-wrap:wrap;padding-top:22px;border-top:1px solid rgba(255,251,240,.08);margin-top:6px}
+  .derailed-meta .m .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,251,240,.45);margin-bottom:4px}
+  .derailed-meta .m .v{font-size:14px;font-weight:600;color:var(--bg)}
+
+  /* ====== About ====== */
+  #studio{background:var(--ink);color:var(--bg);overflow:hidden}
+  #studio .section-head .idx,#studio .section-head .meta{color:rgba(255,251,240,.55)}
+  #studio h2{color:var(--bg)}
+  .studio-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:flex-start}
+  .studio-copy p{font-size:20px;line-height:1.55;color:rgba(255,251,240,.82);max-width:560px;text-wrap:pretty}
+  .studio-copy p + p{margin-top:20px}
+  .studio-copy p em{font-style:normal;background:var(--yellow);color:var(--ink);padding:0 6px;border-radius:4px;font-weight:600}
+  .values{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,251,240,.08);border-radius:18px;overflow:hidden}
+  .values .v{background:var(--ink);padding:26px 24px}
+  .values .v .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--yellow);letter-spacing:.18em}
+  .values .v h4{font-size:22px;font-weight:600;margin:10px 0 8px;letter-spacing:-.02em}
+  .values .v p{font-size:14px;line-height:1.5;color:rgba(255,251,240,.65);margin:0}
+  .team-strip{display:flex;gap:14px;margin-top:56px;flex-wrap:wrap}
+  .avatar{width:46px;height:46px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:700;color:var(--ink);font-size:15px;border:2px solid var(--ink);margin-left:-14px;box-shadow:0 0 0 2px var(--ink)}
+  .avatar:first-child{margin-left:0}
+  .avatar.b{background:var(--yellow-soft)}
+  .avatar.c{background:#fff}
+  .avatar.d{background:var(--yellow-deep);color:var(--ink)}
+  .avatar.e{background:var(--bg)}
+
+  /* ====== Contacts ====== */
+  #contact{background:var(--bg);padding-bottom:80px}
+  .contact-card{position:relative;border-radius:28px;padding:72px;background:var(--bg-2);overflow:hidden}
+  .contact-card::before{
+    content:"";position:absolute;right:-80px;top:-80px;width:420px;height:420px;border-radius:50%;background:var(--yellow);filter:blur(10px);opacity:.7;z-index:0
+  }
+  .contact-card > *{position:relative;z-index:1}
+  .contact-card h3{font-size:clamp(44px,5.8vw,88px);font-weight:700;letter-spacing:-.035em;line-height:.95;margin:12px 0 24px;max-width:780px}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  .contact-card .item{background:var(--bg);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:4px;transition:transform .2s, box-shadow .2s;border:1px solid transparent}
+  .contact-card .item:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(30,34,48,.35);border-color:var(--ink)}
+  .contact-card .item .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .contact-card .item .v{font-size:18px;font-weight:600;letter-spacing:-.01em}
+  .social-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .social-row a{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--yellow);font-weight:600;font-size:14px;transition:transform .15s}
+  .social-row a:hover{transform:translateY(-2px)}
+
+  /* ====== Footer ====== */
+  footer{background:var(--bg);padding:48px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:16px}
+  footer .mono{color:var(--ink)}
+  .backtop{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--yellow);padding:10px 16px;border-radius:999px;font-weight:600;cursor:none}
+
+  /* ====== Reveal anim ====== */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== Mood-specific overrides ===== */
+  body[data-mood="noir"] .hero .blob{opacity:.18;filter:blur(100px)}
+  body[data-mood="noir"] h1.huge .hit{background:linear-gradient(180deg,transparent 55%,var(--yellow) 55%);color:var(--bg)}
+  body[data-mood="noir"] .game-card{background:#0F1118;box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+  body[data-mood="noir"] .derailed{background:#0F1118}
+  body[data-mood="noir"] .contact-card{background:#1A1C25}
+  body[data-mood="noir"] .contact-card .item{background:#0F1118}
+  body[data-mood="noir"] #studio{background:#000}
+  body[data-mood="noir"] .eyebrow,body[data-mood="noir"] .lang{background:rgba(255,251,240,.08)}
+  body[data-mood="noir"] nav.top{background:rgba(24,26,34,.65)}
+  body[data-mood="noir"] nav.top.scrolled{background:rgba(24,26,34,.9)}
+
+  body[data-mood="void"] .hero .blob{opacity:.12}
+  body[data-mood="void"] h1.huge{color:var(--yellow)}
+  body[data-mood="void"] h1.huge .hit{background:linear-gradient(180deg,transparent 55%,var(--yellow) 55%);color:#0A0A0C}
+  body[data-mood="void"] .game-card{background:#000}
+  body[data-mood="void"] .derailed{background:#0A0A0F}
+  body[data-mood="void"] .contact-card{background:#12121A}
+  body[data-mood="void"] .contact-card .item{background:#000}
+  body[data-mood="void"] #studio{background:#000}
+  body[data-mood="void"] nav.top{background:rgba(10,10,12,.65)}
+  body[data-mood="void"] nav.top.scrolled{background:rgba(10,10,12,.9)}
+  body[data-mood="void"] .btn.primary{background:var(--yellow);color:#000}
+  body[data-mood="void"] .btn.ghost{border-color:var(--yellow);color:var(--yellow)}
+
+  body[data-energy="static"] .sparkle,body[data-energy="static"] .marquee .track{animation-play-state:paused}
+  body[data-energy="playful"] .sparkle{filter:drop-shadow(0 0 12px var(--yellow))}
+  body[data-energy="playful"] h1.huge{animation:wiggle 6s ease-in-out infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}50%{transform:rotate(-.4deg)}}
+  @media (max-width:980px){
+    nav.top{grid-template-columns:auto 1fr;padding:14px 18px}
+    nav .links{display:none}
+    nav .wordmark{font-size:14px;letter-spacing:.18em;gap:10px;justify-self:end}
+    nav .right{grid-column:1 / -1;justify-self:start;display:none}
+    .hero{padding:110px 24px 60px}
+    .hero-grid{grid-template-columns:1fr;gap:20px}
+    .logo-stage{height:360px}
+    section.slab{padding:90px 24px}
+    .section-head{flex-direction:column;align-items:flex-start;gap:16px}
+    .game-card{grid-template-columns:1fr}
+    .game-card .art{aspect-ratio:16/9;min-height:0}
+    .game-card .art img{object-fit:contain}
+    .game-card .art::after{background:linear-gradient(180deg,transparent 60%,var(--ink) 98%)}
+    .game-card .body{padding:32px}
+    .metrics{grid-template-columns:1fr;}
+    .metrics .m{border-right:0;border-bottom:1px solid rgba(255,251,240,.12);padding:16px 0}
+    .derailed{grid-template-columns:1fr;min-height:0}
+    .derailed .poster{aspect-ratio:4/5}
+    .derailed .poster::after{background:linear-gradient(180deg,transparent 55%,rgba(30,34,48,.95) 100%)}
+    .derailed .body{padding:36px 28px}
+    .timeline .steps{grid-template-columns:repeat(5,1fr)}
+    .timeline .step .label{font-size:9px;max-width:70px}
+    .studio-grid{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .contact-card{padding:40px 28px}
+    .values{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="#FFD23F" stroke="#1E2230" stroke-width="1.2" stroke-linejoin="round"/>
+  </svg>
+</div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav class="top" id="nav">
+  <div class="left-group">
+    <a href="#top" class="brand" data-hover>
+      <span class="mark">
+        <img src="assets/snapjoy-mark.png" alt="" />
+      </span>
+    </a>
+    <div class="links">
+      <a href="#games" data-hover data-i18n="nav.games">Games</a>
+      <a href="#next" data-hover data-i18n="nav.next">What's next</a>
+      <a href="#studio" data-hover data-i18n="nav.studio">Studio</a>
+      <a href="#contact" data-hover data-i18n="nav.contact">Contact</a>
+    </div>
+  </div>
+  <a href="#top" class="wordmark" data-hover><span>SNAPJOY</span><span class="dot-sep"></span><span>GAMES</span></a>
+  <div class="right">
+    <div class="lang" role="tablist">
+      <button class="on" data-lang="en" data-hover>EN</button>
+      <button data-lang="ru" data-hover>RU</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+
+  <svg class="sparkle s1" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#1E2230"/></svg>
+  <svg class="sparkle s2" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#F2A900"/></svg>
+  <svg class="sparkle s3" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#1E2230"/></svg>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="pip"></span><span data-i18n="hero.eyebrow">Indie studio · Est. 2019</span></span>
+      <h1 class="huge">
+        <span data-i18n="hero.h1.a">We make games</span><br />
+        <span data-i18n="hero.h1.b">that </span><span class="hit" data-i18n="hero.h1.hit">hit</span>
+        <svg class="star" width="64" height="64" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#1E2230"/></svg>
+      </h1>
+      <p class="sub" data-i18n="hero.sub">A tiny studio with a single rule — ship the kind of games we'd stay up late to play. One shipped, one under the hood, more sparks coming.</p>
+      <div class="cta-row">
+        <a href="#games" class="btn primary" data-hover>
+          <span data-i18n="cta.see">See our games</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn ghost" data-hover data-i18n="cta.talk">Let's talk</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="k" data-i18n="stat.revenue">Lifetime revenue</div><div class="v mono" id="revCounter">$1.2M</div></div>
+        <div class="stat"><div class="k" data-i18n="stat.shipped">Shipped titles</div><div class="v mono">01</div></div>
+        <div class="stat"><div class="k" data-i18n="stat.wip">In the forge</div><div class="v mono">01</div></div>
+      </div>
+    </div>
+
+    <div class="logo-stage" id="stage">
+      <div class="logo-3d" id="logo3d">
+        <img src="assets/snapjoy-mark.png" alt="SnapJoy mark" />
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <span class="token t1">v.3 // snap</span>
+        <span class="token t2">★ joy.exe</span>
+        <span class="token t3">01001010</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span data-i18n="marq">
+      SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·
+    </span>
+  </div>
+</div>
+
+<!-- GAMES -->
+<section class="slab" id="games">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="idx">01 — <span data-i18n="sec.games.idx">Shipped</span></div>
+        <h2 data-i18n="sec.games.h2">What we've made.</h2>
+      </div>
+      <div class="meta" data-i18n="sec.games.meta">One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.</div>
+    </div>
+
+    <article class="game-card reveal">
+      <div class="art">
+        <img src="assets/anvil-saga-cover.jpg" alt="Anvil Saga cover art" />
+      </div>
+      <div class="body">
+        <div>
+          <span class="tag">
+            <svg width="10" height="10" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#FFD23F"/></svg>
+            <span data-i18n="anvil.tag">Launched · Steam</span>
+          </span>
+          <h3>Anvil Saga</h3>
+          <p class="desc" data-i18n="anvil.desc">A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.</p>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="m"><div class="k" data-i18n="anvil.m1">Revenue</div><div class="v mono" data-count-to="1.2">$1.2M</div></div>
+            <div class="m"><div class="k" data-i18n="anvil.m2">Platform</div><div class="v plain">Steam · PC</div></div>
+            <div class="m"><div class="k" data-i18n="anvil.m3">Reception</div><div class="v mono">84%</div></div>
+          </div>
+          <div class="game-cta" style="margin-top:28px">
+            <a class="btn steam" href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener" data-hover>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="9" r="3" fill="currentColor"/><circle cx="9" cy="15" r="2" fill="currentColor"/></svg>
+              <span data-i18n="anvil.cta1">View on Steam</span>
+            </a>
+            <a class="btn ghost-dark" data-hover data-i18n="anvil.cta2">Press kit</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- NEXT / HORROR -->
+<section class="slab" id="next" style="padding-top:40px">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="idx">02 — <span data-i18n="sec.next.idx">In development</span></div>
+        <h2 data-i18n="sec.next.h2">Derailed.</h2>
+      </div>
+      <div class="meta" data-i18n="sec.next.meta">Our second project. A single-player narrative adventure about epidemics, empires, and the things that crawl out when a country starts to fracture.</div>
+    </div>
+
+    <article class="derailed reveal">
+      <div class="poster">
+        <img src="assets/derailed-poster.png" alt="Derailed key art" />
+        <span class="badge"><span class="dot"></span><span data-i18n="derailed.badge">In development</span></span>
+      </div>
+      <div class="body">
+        <span class="tag">
+          <svg width="9" height="9" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#FFD23F"/></svg>
+          <span data-i18n="derailed.tag">Next from SnapJoy</span>
+        </span>
+        <div class="subtitle" data-i18n="derailed.sub">Victorian · Gothic · Narrative</div>
+        <h3>Derailed</h3>
+        <p class="lead" data-i18n="derailed.p">An island nation — coincidentally resembling a Victorian steampunk Britain — is gripped by a mysterious illness with shifting paranormal symptoms, lethal for most who catch it. The state dispatches us to trace the source of the outbreak and, if possible, stop it. We travel city to village: heal patients, banish demons, and talk with locals to uncover what's really behind the plague.</p>
+
+        <div class="timeline" aria-label="Development timeline">
+          <div class="track"></div>
+          <div class="fill" id="derailedFill"></div>
+          <div class="steps">
+            <div class="step done"><div class="node">01</div><div class="label" data-i18n="tl.1">Concept</div></div>
+            <div class="step done"><div class="node">02</div><div class="label" data-i18n="tl.2">Production start</div></div>
+            <div class="step current"><div class="node">03</div><div class="label" data-i18n="tl.3">First demo</div></div>
+            <div class="step"><div class="node">04</div><div class="label" data-i18n="tl.4">Playable demo</div></div>
+            <div class="step"><div class="node">05</div><div class="label" data-i18n="tl.5">Release</div></div>
+          </div>
+        </div>
+
+        <div class="derailed-meta">
+          <div class="m"><div class="k" data-i18n="derailed.m1">Setting</div><div class="v" data-i18n="derailed.m1v">Alt-Victorian steampunk</div></div>
+          <div class="m"><div class="k" data-i18n="derailed.m2">Genre</div><div class="v" data-i18n="derailed.m2v">Narrative adventure</div></div>
+          <div class="m"><div class="k" data-i18n="derailed.m3">Platform</div><div class="v">Steam · PC</div></div>
+          <div class="m"><div class="k" data-i18n="derailed.m4">Release</div><div class="v">TBA</div></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="slab" id="studio">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="idx">03 — <span data-i18n="sec.studio.idx">The team</span></div>
+        <h2 data-i18n="sec.studio.h2">A small forge, loud output.</h2>
+      </div>
+      <div class="meta" data-i18n="sec.studio.meta">Tight team, strong taste, zero committees.</div>
+    </div>
+
+    <div class="studio-grid reveal">
+      <div class="studio-copy">
+        <p data-i18n="studio.p1">SnapJoy Games is a small independent studio. We build games we'd want to lose a weekend to — strong mechanics, a clear voice, and enough weirdness to stick in your head a week later.</p>
+        <p data-i18n="studio.p2">Our first shipped title, <em>Anvil Saga</em>, found its audience on Steam and earned us the runway to keep swinging. We're using that runway to make something stranger.</p>
+        <div class="team-strip" aria-label="Team">
+          <span class="avatar">KA</span>
+          <span class="avatar b">MR</span>
+          <span class="avatar c">SL</span>
+          <span class="avatar d">DY</span>
+          <span class="avatar e">+4</span>
+        </div>
+      </div>
+      <div class="values">
+        <div class="v"><div class="n">/ 01</div><h4 data-i18n="val.1.h">Craft over scope.</h4><p data-i18n="val.1.p">We'd rather cut a system than ship it half-cooked.</p></div>
+        <div class="v"><div class="n">/ 02</div><h4 data-i18n="val.2.h">Ship, then polish.</h4><p data-i18n="val.2.p">Games get better in players' hands. We show up every patch.</p></div>
+        <div class="v"><div class="n">/ 03</div><h4 data-i18n="val.3.h">Small by choice.</h4><p data-i18n="val.3.p">No committees, no filler. Decisions happen in a room of eight.</p></div>
+        <div class="v"><div class="n">/ 04</div><h4 data-i18n="val.4.h">Weird is a feature.</h4><p data-i18n="val.4.p">The moments people screenshot are the ones nobody asked us for.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="slab" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="idx">04 — <span data-i18n="sec.contact.idx">Say hi</span></div>
+      </div>
+    </div>
+
+    <div class="contact-card reveal">
+      <span class="eyebrow"><span class="pip"></span><span data-i18n="contact.eyebrow">Currently open to</span></span>
+      <h3 data-i18n="contact.h3">Press, publishers, good ideas.</h3>
+      <p style="max-width:560px;color:var(--ink-2);font-size:17px;line-height:1.55" data-i18n="contact.p">We read everything. Pitches, coverage requests, job applications — one inbox, fast replies.</p>
+
+      <div class="contact-grid">
+        <a class="item" href="mailto:official@snapjoygames.com" data-hover>
+          <span class="k">Email</span>
+          <span class="v">official@snapjoygames.com</span>
+        </a>
+        <a class="item" href="https://t.me/SnapJoyGames" target="_blank" rel="noopener" data-hover>
+          <span class="k">Telegram</span>
+          <span class="v">@SnapJoyGames</span>
+        </a>
+        <a class="item" href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener" data-hover>
+          <span class="k">Steam</span>
+          <span class="v">Anvil Saga →</span>
+        </a>
+      </div>
+
+      <div class="social-row">
+        <a href="https://t.me/snapjoy_games" target="_blank" rel="noopener" data-hover>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 4.3 18.5 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-.9.5l.3-4.7L17.6 7c.4-.3 0-.5-.5-.2L7 12.7 2.7 11.4c-1-.3-1-1 .2-1.4L20.4 3c.8-.3 1.5.2 1.4 1.3Z"/></svg>
+          Telegram
+        </a>
+        <a href="https://www.instagram.com/snapjoygames/" target="_blank" rel="noopener" data-hover>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/company/snapjoy-games/" target="_blank" rel="noopener" data-hover>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.01 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.97-1.8-2.97-1.8 0-2.08 1.4-2.08 2.87V21H9V9Z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener" data-hover>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="16" cy="9" r="3" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="2" fill="currentColor" stroke="none"/></svg>
+          Steam
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="mono">© 2026 SnapJoy Games</div>
+  <a href="#top" class="backtop" data-hover>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <span data-i18n="foot.back">Back to top</span>
+  </a>
+</footer>
+
+<script>
+/* ============ Custom cursor ============ */
+const cur = document.getElementById('cursor');
+const dot = document.getElementById('cursorDot');
+let tx=0,ty=0,cx=0,cy=0;
+window.addEventListener('pointermove', e=>{
+  tx=e.clientX; ty=e.clientY;
+  dot.style.left=tx+'px'; dot.style.top=ty+'px';
+});
+function loop(){
+  cx += (tx-cx)*0.22; cy += (ty-cy)*0.22;
+  cur.style.left=cx+'px'; cur.style.top=cy+'px';
+  requestAnimationFrame(loop);
+}
+loop();
+document.querySelectorAll('[data-hover], a, button').forEach(el=>{
+  el.addEventListener('pointerenter',()=>cur.classList.add('hover'));
+  el.addEventListener('pointerleave',()=>cur.classList.remove('hover'));
+});
+
+/* hero logo — static */
+
+/* ============ Nav scrolled state ============ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+/* ============ Reveal on scroll ============ */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============ Parallax on sparkles & blobs ============ */
+const parallaxables = document.querySelectorAll('.sparkle, .hero .blob, .orbit .token');
+window.addEventListener('scroll', ()=>{
+  const y = window.scrollY;
+  parallaxables.forEach((el,i)=>{
+    const speed = (i%3)*0.06 + 0.04;
+    el.style.translate = `0 ${y*speed}px`;
+  });
+});
+
+/* ============ Revenue counter ============ */
+const rev = document.getElementById('revCounter');
+let revStarted = false;
+const revIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !revStarted){
+      revStarted = true;
+      let v = 0, target = 1.2, t0 = performance.now();
+      function step(t){
+        const p = Math.min(1,(t-t0)/1600);
+        const eased = 1 - Math.pow(1-p,3);
+        v = target * eased;
+        rev.textContent = '$' + v.toFixed(2) + 'M';
+        if(p<1) requestAnimationFrame(step);
+        else rev.textContent = '$1.2M';
+      }
+      requestAnimationFrame(step);
+    }
+  });
+},{threshold:0.5});
+revIO.observe(rev);
+
+/* ============ i18n ============ */
+const I18N = {
+  en: {
+    "brand":"SnapJoy Games",
+    "nav.games":"Games","nav.next":"What's next","nav.studio":"Studio","nav.contact":"Contact",
+    "cta.wishlist":"Wishlist on Steam","cta.see":"See our games","cta.talk":"Let's talk",
+    "hero.eyebrow":"Indie studio · Est. 2019",
+    "hero.h1.a":"We make games","hero.h1.b":"that ","hero.h1.hit":"hit",
+    "hero.sub":"A tiny studio with a single rule — ship the kind of games we'd stay up late to play. One shipped, one under the hood, more sparks coming.",
+    "stat.revenue":"Lifetime revenue","stat.shipped":"Shipped titles","stat.wip":"In the forge",
+    "marq":"SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·",
+    "sec.games.idx":"Shipped","sec.games.h2":"What we've made.","sec.games.meta":"One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.",
+    "anvil.tag":"Launched · Steam","anvil.desc":"A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.",
+    "anvil.m1":"Revenue","anvil.m2":"Platform","anvil.m3":"Reception","anvil.cta1":"View on Steam","anvil.cta2":"Press kit",
+    "sec.next.idx":"In development","sec.next.h2":"Derailed.","sec.next.meta":"Our second project. A single-player narrative adventure about epidemics, empires, and the things that crawl out when a country starts to fracture.",
+    "derailed.badge":"In development","derailed.tag":"Next from SnapJoy","derailed.sub":"Victorian · Gothic · Narrative",
+    "derailed.p":"An island nation — coincidentally resembling a Victorian steampunk Britain — is gripped by a mysterious illness with shifting paranormal symptoms, lethal for most who catch it. The state dispatches us to trace the source of the outbreak and, if possible, stop it. We travel city to village: heal patients, banish demons, and talk with locals to uncover what's really behind the plague.",
+    "derailed.m1":"Setting","derailed.m1v":"Alt-Victorian steampunk","derailed.m2":"Genre","derailed.m2v":"Narrative adventure","derailed.m3":"Platform","derailed.m4":"Release",
+    "tl.1":"Concept","tl.2":"Production start","tl.3":"First demo","tl.4":"Playable demo","tl.5":"Release",
+    "sec.studio.idx":"The team","sec.studio.h2":"A small forge, loud output.","sec.studio.meta":"Tight team, strong taste, zero committees.",
+    "studio.p1":"SnapJoy Games is a small independent studio. We build games we'd want to lose a weekend to — strong mechanics, a clear voice, and enough weirdness to stick in your head a week later.",
+    "studio.p2":"Our first shipped title, <em>Anvil Saga</em>, found its audience on Steam and earned us the runway to keep swinging. We're using that runway to make something stranger.",
+    "val.1.h":"Craft over scope.","val.1.p":"We'd rather cut a system than ship it half-cooked.",
+    "val.2.h":"Ship, then polish.","val.2.p":"Games get better in players' hands. We show up every patch.",
+    "val.3.h":"Small by choice.","val.3.p":"No committees, no filler. Decisions happen in a room of eight.",
+    "val.4.h":"Weird is a feature.","val.4.p":"The moments people screenshot are the ones nobody asked us for.",
+    "sec.contact.idx":"Say hi",
+    "contact.eyebrow":"Currently open to","contact.h3":"Press, publishers, good ideas.",
+    "contact.p":"We read everything. Pitches, coverage requests, job applications — one inbox, fast replies.",
+    "foot.back":"Back to top"
+  },
+  ru: {
+    "brand":"SnapJoy Games",
+    "nav.games":"Игры","nav.next":"Что дальше","nav.studio":"Студия","nav.contact":"Контакты",
+    "cta.wishlist":"В вишлист Steam","cta.see":"Посмотреть игры","cta.talk":"Написать нам",
+    "hero.eyebrow":"Инди-студия · с 2019",
+    "hero.h1.a":"Мы делаем игры,","hero.h1.b":"которые ","hero.h1.hit":"цепляют",
+    "hero.sub":"Маленькая студия с одним правилом — выпускать игры, ради которых сами засиживаемся ночами. Одна вышла, одна в работе, ещё искры впереди.",
+    "stat.revenue":"Общий доход","stat.shipped":"Выпущено","stat.wip":"В кузнице",
+    "marq":"SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ · SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ ·",
+    "sec.games.idx":"Выпущено","sec.games.h2":"Что мы сделали.","sec.games.meta":"Одна игра уже в Steam и продолжает приносить деньги. Отзывы положительные, фанаты громкие.",
+    "anvil.tag":"Вышла · Steam","anvil.desc":"Симулятор управления средневековой кузницей. Поддерживай печь, обучай подмастерьев, выживай в политике и меняй ход королевства по одной подкове за раз.",
+    "anvil.m1":"Доход","anvil.m2":"Платформа","anvil.m3":"Отзывы","anvil.cta1":"Страница в Steam","anvil.cta2":"Пресс-кит",
+    "sec.next.idx":"В разработке","sec.next.h2":"Derailed.","sec.next.meta":"Наш второй проект. Одиночный нарративный приключенческий проект об эпидемиях, империях и том, что выползает наружу, когда страна начинает трещать по швам.",
+    "derailed.badge":"В разработке","derailed.tag":"Следующий проект SnapJoy","derailed.sub":"Викторианство · Готика · Нарратив",
+    "derailed.p":"В островном государстве, совершенно случайно похожем на викторианскую стимпанк/альтернативную Британию, распространяется таинственное заболевание с плавающими паранормальными симптомами, которое приводит к летальному исходу у большинства пациентов. Государство снаряжает нас найти причину эпидемии и по возможности остановить её. Мы путешествуем по городам и сёлам, исцеляем пациентов, изгоняем демонов и общаемся с местными, чтобы установить причину вспышки.",
+    "derailed.m1":"Сеттинг","derailed.m1v":"Альт-викторианский стимпанк","derailed.m2":"Жанр","derailed.m2v":"Нарративное приключение","derailed.m3":"Платформа","derailed.m4":"Релиз",
+    "tl.1":"Концепт","tl.2":"Начало разработки","tl.3":"Первое демо","tl.4":"Игровое демо","tl.5":"Релиз",
+    "sec.studio.idx":"Команда","sec.studio.h2":"Маленькая кузница, громкий выхлоп.","sec.studio.meta":"Плотная команда, сильный вкус, ноль комитетов.",
+    "studio.p1":"SnapJoy Games — небольшая независимая студия. Мы делаем игры, в которых сами готовы потерять выходные — с сильной механикой, ясным голосом и щепоткой странности, чтобы они держались в голове ещё неделю.",
+    "studio.p2":"Наш первый тайтл, <em>Anvil Saga</em>, нашёл свою аудиторию в Steam и дал нам запас, чтобы бить дальше. Этот запас мы тратим на что-то куда более странное.",
+    "val.1.h":"Качество важнее объёма.","val.1.p":"Лучше вырежем систему, чем выпустим её сырой.",
+    "val.2.h":"Выпускай, потом полируй.","val.2.p":"Игры становятся лучше в руках игроков. Мы приходим к каждому патчу.",
+    "val.3.h":"Маленькие — по выбору.","val.3.p":"Ни комитетов, ни филлера. Решения принимаются в комнате из восьми человек.",
+    "val.4.h":"Странность — это фича.","val.4.p":"Моменты, которые скринят игроки, — это те, которых никто не просил.",
+    "sec.contact.idx":"Написать",
+    "contact.eyebrow":"Сейчас открыты к","contact.h3":"Прессе, издателям, хорошим идеям.",
+    "contact.p":"Читаем всё. Питчи, запросы на обзоры, резюме — один инбокс, быстрые ответы.",
+    "foot.back":"Наверх"
+  }
+};
+function setLang(lang){
+  document.documentElement.lang = lang;
+  const dict = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k] !== undefined) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang===lang));
+}
+document.querySelectorAll('.lang button').forEach(b=>{
+  b.addEventListener('click', ()=>setLang(b.dataset.lang));
+});
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="snapjoy-tweaks.jsx"></script>
+</body>
+</html>
