@@ -238,17 +238,7 @@
   };
 
   function getInitialMood() {
-    try {
-      var s = global.localStorage.getItem('snapjoy-mood');
-      if (s && MOODS[s]) return s;
-    } catch (e) {}
-    if (
-      typeof global.matchMedia === 'function' &&
-      global.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      return 'noir';
-    }
-    return 'bright';
+    return 'noir';
   }
 
   function applyMood(name) {
