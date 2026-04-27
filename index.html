@@ -6,7 +6,7 @@
 <title>SnapJoy Games — We make games that hit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --bg:#FFFBF0;
@@ -22,7 +22,7 @@
     --radius:18px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;cursor:none}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;cursor:auto}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
   .mono{font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:-.01em}
@@ -33,16 +33,9 @@
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.15 0 0 0 0.15 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
-  /* ====== Custom cursor ====== */
-  .cursor{position:fixed;left:0;top:0;width:28px;height:28px;pointer-events:none;z-index:100;transform:translate(-50%,-50%);transition:transform .12s ease, opacity .2s}
-  .cursor svg{width:100%;height:100%;filter:drop-shadow(0 2px 6px rgba(242,169,0,.55))}
-  .cursor.hover{transform:translate(-50%,-50%) scale(1.6) rotate(22deg)}
-  .cursor-dot{position:fixed;left:0;top:0;width:6px;height:6px;border-radius:50%;background:var(--cursor-dot,var(--ink));pointer-events:none;z-index:101;transform:translate(-50%,-50%);transition:opacity .2s}
-  .cursor svg path{fill:var(--yellow);stroke:var(--cursor-stroke,var(--ink));stroke-width:1.2;stroke-linejoin:round}
   .hero .sparkle path{fill:var(--ink)}
   .hero .sparkle.s2 path{fill:var(--yellow-deep)}
   .hero .star path{fill:var(--star-fill,var(--ink))}
-  @media (hover:none){ html,body{cursor:auto} .cursor,.cursor-dot{display:none} }
 
   /* ====== Nav ====== */
   nav.top{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:16px 32px;backdrop-filter:blur(14px);background:var(--nav-glass,rgba(255,251,240,.55));border-bottom:1px solid transparent;transition:border-color .3s, background .3s}
@@ -57,13 +50,13 @@
   nav .links a:hover{background:var(--nav-link-hover-bg,var(--ink));color:var(--nav-link-hover-fg,var(--yellow))}
   nav .right{display:flex;align-items:center;gap:10px;justify-self:end}
   nav .left-group{display:flex;align-items:center;gap:14px}
-  .theme-toggle{display:inline-grid;place-items:center;width:40px;height:36px;padding:0;border:0;border-radius:999px;background:var(--pill-bg,rgba(30,34,48,.06));color:var(--ink-2);cursor:none;font-family:inherit;transition:background .2s,color .2s,transform .15s}
+  .theme-toggle{display:inline-grid;place-items:center;width:40px;height:36px;padding:0;border:0;border-radius:999px;background:var(--pill-bg,rgba(30,34,48,.06));color:var(--ink-2);cursor:pointer;font-family:inherit;transition:background .2s,color .2s,transform .15s}
   .theme-toggle:hover{background:var(--nav-link-hover-bg,var(--ink));color:var(--nav-link-hover-fg,var(--yellow));transform:translateY(-1px)}
   .theme-toggle svg{width:18px;height:18px}
   .lang{display:flex;background:var(--pill-bg,rgba(30,34,48,.06));border-radius:999px;padding:3px;font-size:12px;font-weight:600}
-  .lang button{border:0;background:transparent;padding:6px 12px;border-radius:999px;cursor:none;color:var(--muted);font-family:inherit;font-weight:600;letter-spacing:.04em}
+  .lang button{border:0;background:transparent;padding:6px 12px;border-radius:999px;cursor:pointer;color:var(--muted);font-family:inherit;font-weight:600;letter-spacing:.04em}
   .lang button.on{background:var(--btn-primary-bg,var(--ink));color:var(--btn-primary-fg,var(--yellow))}
-  .btn-wishlist{display:inline-flex;align-items:center;gap:8px;background:var(--btn-primary-bg,var(--ink));color:var(--btn-primary-fg,var(--yellow));padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;border:0;cursor:none;transition:transform .15s, box-shadow .2s}
+  .btn-wishlist{display:inline-flex;align-items:center;gap:8px;background:var(--btn-primary-bg,var(--ink));color:var(--btn-primary-fg,var(--yellow));padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;border:0;cursor:pointer;transition:transform .15s, box-shadow .2s}
   .btn-wishlist:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px var(--btn-primary-shadow,rgba(30,34,48,.55))}
   .btn-wishlist .dot{width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 0 rgba(255,210,63,.8);animation:pulse 1.8s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,210,63,.7)}70%{box-shadow:0 0 0 10px rgba(255,210,63,0)}100%{box-shadow:0 0 0 0 rgba(255,210,63,0)}}
@@ -81,7 +74,7 @@
   h1.huge .star{display:inline-block;vertical-align:-12%;margin:0 6px}
   .hero .sub{font-size:20px;line-height:1.45;color:var(--ink-2);max-width:520px;margin:24px 0 36px}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:14px;font-weight:600;font-size:15px;border:0;cursor:none;transition:transform .15s, box-shadow .2s, background .2s}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:14px;font-weight:600;font-size:15px;border:0;cursor:pointer;transition:transform .15s, box-shadow .2s, background .2s}
   .btn.primary{background:var(--btn-primary-bg,var(--ink));color:var(--btn-primary-fg,var(--yellow));box-shadow:0 12px 28px -16px var(--btn-primary-shadow,rgba(30,34,48,.7))}
   .btn.primary:hover{transform:translateY(-2px);background:var(--btn-primary-hover,#000)}
   .btn.ghost{background:transparent;color:var(--btn-ghost-fg,var(--ink));border:1.5px solid var(--btn-ghost-border,var(--ink))}
@@ -122,28 +115,58 @@
   .section-head .idx{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
   .section-head .meta{font-size:14px;color:var(--muted);max-width:320px;line-height:1.5}
 
-  /* ====== Anvil Saga ====== */
-  #games{background:var(--bg)}
-  .game-card{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:0;border-radius:28px;overflow:hidden;background:var(--card-surface,var(--ink));color:var(--card-fg,var(--bg));isolation:isolate;box-shadow:0 40px 60px -40px var(--shadow-card,rgba(30,34,48,.35))}
-  .game-card .art{position:relative;overflow:hidden;background:var(--card-surface,var(--ink));min-height:100%}
-  .game-card .art img{width:100%;height:100%;object-fit:contain;transition:transform .8s cubic-bezier(.2,.7,.2,1);transform:scale(1.01)}
-  .game-card:hover .art img{transform:scale(1.04)}
-  .game-card .art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,var(--card-art-fade,rgba(30,34,48,.9)) 99%);pointer-events:none}
-  .game-card .body{padding:48px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
-  .game-card .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--yellow-tag-bg,rgba(255,210,63,.15));color:var(--yellow);border-radius:999px;width:fit-content}
-  .game-card h3{font-size:clamp(40px,5vw,68px);font-weight:700;letter-spacing:-.03em;line-height:.95;margin:18px 0 12px}
-  .game-card p.desc{color:var(--card-fg-muted,rgba(255,251,240,.7));line-height:1.5;font-size:16px;max-width:460px}
-  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:28px 0 0;border-top:1px solid var(--card-line,rgba(255,251,240,.12))}
-  .metrics .m{padding:22px 16px;border-right:1px solid var(--card-line,rgba(255,251,240,.12));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-  .metrics .m:last-child{border-right:0}
-  .metrics .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--card-fg-muted,rgba(255,251,240,.5));margin-bottom:8px}
-  .metrics .v{font-size:28px;font-weight:700;letter-spacing:-.02em;color:var(--yellow);line-height:1}
-  .metrics .v.plain{color:var(--card-fg,var(--bg));font-size:20px}
-  .game-cta{display:flex;gap:10px;align-items:center}
-  .btn.steam{background:var(--yellow);color:var(--steam-fg,var(--ink));padding:12px 20px;border-radius:12px;font-weight:600;cursor:none}
-  .btn.steam:hover{background:var(--steam-hover-bg,#fff);transform:translateY(-1px)}
-  .btn.ghost-dark{background:transparent;color:var(--ghost-dark-fg,var(--bg));border:1.5px solid var(--ghost-dark-border,rgba(255,251,240,.25));padding:12px 20px;border-radius:12px;font-weight:600}
-  .btn.ghost-dark:hover{border-color:var(--yellow);color:var(--yellow)}
+  /* ====== Anvil Saga (Figma redesign) ====== */
+  #games{background:#000;padding:0}
+  .anvil-section{position:relative;width:100%;overflow:hidden;line-height:1}
+  .anvil-canvas{position:relative;width:1905px;height:1110px;transform-origin:top left;color:#fff;font-family:"Pixelify Sans",monospace}
+  .ab-bg-scene{position:absolute;left:0;top:22px;width:1905px;height:1076px;background:url(assets/fig/bg-section.png) center/cover no-repeat}
+  .ab-bg-fade{position:absolute;left:0;top:14px;width:1905px;height:677px;background:url(assets/fig/bg-fade.png) center/cover no-repeat}
+  .ab-hero{position:absolute;left:1100px;top:65px;width:202px;height:270px;background:url(assets/fig/hero.png) center/cover no-repeat;z-index:0}
+  .ab-background-frame{position:absolute;left:232px;top:278px;width:1448px;height:667px;background:url(assets/fig/background-frame.png) center/cover no-repeat;z-index:1}
+  .ab-frame-inner-pressed{position:absolute;left:1100px;top:327px;width:530px;height:553px;background:url(assets/fig/frame-inner-pressed.png) center/cover no-repeat;z-index:2}
+  .ab-frame-top{position:absolute;left:0;top:0;width:1905px;height:28px;background:url(assets/fig/frame-border.png) center/cover no-repeat;z-index:10}
+  .ab-frame-bottom{position:absolute;left:0;top:1082px;width:1905px;height:28px;background:url(assets/fig/frame-border.png) center/cover no-repeat;z-index:10}
+  .ab-outer-texts{position:absolute;left:130px;top:100px;z-index:3}
+  .ab-label{font-family:"Pixelify Sans",monospace;font-size:17px;letter-spacing:.16em;color:#A0A0A0;text-transform:uppercase;margin-bottom:12px}
+  .ab-headline{font-family:"Pixelify Sans",monospace;font-size:113px;line-height:1;letter-spacing:-.002em;color:#fff;white-space:nowrap}
+  .ab-headline-mid{color:#fff}
+  .ab-headline-dot{color:#eab93f}
+  .ab-section-desc{position:absolute;left:1238px;top:80px;width:520px;font-family:"Space Grotesk",sans-serif;font-size:19px;line-height:1.15;color:#fff}
+  .ab-big-picture{position:absolute;left:299px;top:328px;width:771px;height:434px;background:url(assets/fig/big-picture.png) center/cover no-repeat;z-index:2;opacity:1;transition:opacity .22s ease}
+  .ab-big-picture.is-changing{opacity:.18}
+  .ab-thumb-strip{position:absolute;left:292px;top:776px;width:785px;height:117px;z-index:3}
+  .ab-thumb-container{position:absolute;left:48px;top:0;width:689px;height:117px;background:url(assets/fig/photos-navi-container.png) center/cover no-repeat}
+  .ab-thumb-arrow{position:absolute;top:40px;width:43px;height:42px;cursor:pointer;user-select:none;background-position:center;background-size:cover;background-repeat:no-repeat;transition:transform .12s ease,filter .12s ease}
+  .ab-thumb-arrow:hover{filter:brightness(1.08)}
+  .ab-thumb-arrow.is-pressed{animation:abArrowPress .18s ease}
+  @keyframes abArrowPress{0%{transform:scale(1)}50%{transform:scale(.9)}100%{transform:scale(1)}}
+  .ab-thumb-prev{left:0;background-image:url(assets/fig/button-left-navi.png)}
+  .ab-thumb-next{right:0;background-image:url(assets/fig/button-right-navi.png)}
+  .ab-thumbs{position:absolute;left:84px;top:17px;display:flex;gap:12px}
+  .ab-thumb{position:relative;width:146px;height:83px;cursor:pointer;opacity:.62;transition:opacity .2s}
+  .ab-thumb::before{content:"";position:absolute;inset:0;background:var(--thumb-image) center/cover no-repeat}
+  .ab-thumb::after{content:"";position:absolute;left:-2px;top:-2px;width:152px;height:89px;background:url(assets/fig/small-preview-frame.png) center/cover no-repeat}
+  .ab-thumb.is-active{opacity:1}
+  .ab-thumb:hover{opacity:1}
+  .ab-game-name{position:absolute;left:1105px;top:345px;width:502px;height:178px;background:url(assets/fig/game-name.png) center/cover no-repeat;z-index:3}
+  .ab-game-name-text{position:absolute;left:1170px;top:421px;font-family:"Pixelify Sans",monospace;font-size:80px;line-height:1;color:#fff;letter-spacing:-.002em;z-index:4;white-space:nowrap}
+  .ab-game-desc{position:absolute;left:1159px;top:535px;width:417px;margin:0;font-family:"Space Grotesk",sans-serif;font-size:19px;line-height:1.55;color:#fff;z-index:3;text-wrap:pretty}
+  .ab-metrics{position:absolute;left:1144px;top:689px;display:flex;align-items:center;z-index:3}
+  .ab-metric{padding:0 26px;display:flex;flex-direction:column;gap:9px}
+  .ab-metric:first-child{padding-left:0}
+  .ab-metric-k{font-family:"Pixelify Sans",monospace;font-size:17px;letter-spacing:.004em;color:#A0A0A0}
+  .ab-metric-v{font-family:"Pixelify Sans",monospace;font-size:33px;color:#EAB93F;line-height:1}
+  .ab-metric-v.ab-plain{color:#fff}
+  .ab-vdivider{width:4px;height:72px;background:url(assets/fig/divider-vertical.png) center/cover no-repeat;flex-shrink:0}
+  .ab-divider-h{position:absolute;left:1125px;top:669px;width:485px;height:4px;background:url(assets/fig/divider-horizontal.png) center/cover no-repeat;z-index:3}
+  .ab-steam-btn{position:absolute;left:1179px;top:783px;width:259px;height:73px;background:url(assets/fig/steam-button.png) center/cover no-repeat;display:flex;align-items:center;justify-content:center;gap:12px;z-index:3;text-decoration:none;color:#fff;font-family:"Pixelify Sans",monospace;font-size:28px;transition:filter .2s}
+  .ab-steam-btn:hover{filter:brightness(1.12)}
+  .ab-steam-logo{position:absolute;left:1410px;top:770px;width:41px;height:41px;object-fit:contain;z-index:4;pointer-events:none}
+  .ab-blacksmith{position:absolute;left:0;top:691px;width:494px;height:406px;background:url(assets/fig/blacksmith.png) bottom left/contain no-repeat;z-index:4;pointer-events:none}
+  .ab-boat{position:absolute;left:1367px;top:598px;width:538px;height:499px;background:url(assets/fig/boat.png) center/contain no-repeat;z-index:4;pointer-events:none}
+  @media (max-width:980px){
+    .ab-section-desc{left:600px;top:10px;width:300px;font-size:16px}
+  }
 
   /* ====== Derailed (next) ====== */
   #next{background:var(--bg)}
@@ -204,26 +227,80 @@
     .derailed .derailed-meta{padding-top:clamp(8px,1.4vh,16px);margin-top:2px;gap:16px 22px}
   }
 
-  /* ====== About ====== */
-  #studio{background:var(--studio-bg,var(--ink));color:var(--studio-fg,var(--bg));overflow:hidden}
-  #studio .section-head .idx,#studio .section-head .meta{color:var(--studio-meta,rgba(255,251,240,.55))}
-  #studio h2{color:var(--studio-heading,var(--bg))}
-  .studio-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:flex-start}
-  .studio-copy p{font-size:20px;line-height:1.55;color:var(--studio-fg,rgba(255,251,240,.82));max-width:560px;text-wrap:pretty}
-  .studio-copy p + p{margin-top:20px}
-  .studio-copy p em{font-style:normal;background:var(--yellow);color:var(--em-on-yellow,var(--ink));padding:0 6px;border-radius:4px;font-weight:600}
-  .values{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--studio-values-grid,rgba(255,251,240,.08));border-radius:18px;overflow:hidden}
-  .values .v{background:var(--studio-card,var(--ink));padding:26px 24px}
-  .values .v .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--yellow);letter-spacing:.18em}
-  .values .v h4{font-size:22px;font-weight:600;margin:10px 0 8px;letter-spacing:-.02em;color:var(--studio-heading,var(--bg))}
-  .values .v p{font-size:14px;line-height:1.5;color:var(--studio-value-p,rgba(255,251,240,.65));margin:0}
-  .team-strip{display:flex;gap:14px;margin-top:56px;flex-wrap:wrap}
-  .avatar{width:46px;height:46px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-weight:700;color:var(--btn-primary-bg,var(--ink));font-size:15px;border:2px solid var(--avatar-ring,var(--ink));margin-left:-14px;box-shadow:0 0 0 2px var(--avatar-ring,var(--ink))}
-  .avatar:first-child{margin-left:0}
-  .avatar.b{background:var(--yellow-soft)}
-  .avatar.c{background:#fff}
-  .avatar.d{background:var(--yellow-deep);color:var(--ink)}
-  .avatar.e{background:var(--avatar-e-bg,var(--bg));color:var(--avatar-e-fg,var(--ink))}
+  /* ====== Team Constellation ====== */
+  #studio{padding:0;background:#0D0F18;overflow:hidden;color:#fff}
+  .tt-wrap{position:relative;width:100%;overflow:hidden}
+  .tt-stage{position:relative;width:1440px;height:720px;transform-origin:top left;overflow:hidden}
+  .tt-bg{position:absolute;inset:0;background:radial-gradient(ellipse 900px 480px at 50% 45%,#171b2e 0%,#0D0F18 70%)}
+  .tt-bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+  .tt-svg{position:absolute;left:0;top:0;width:1440px;height:720px;pointer-events:none;z-index:2}
+  .tt-path{fill:none;stroke:#EAB93F;stroke-width:2.5;stroke-dasharray:10 7;opacity:.4}
+  .tt-header{position:absolute;left:32px;top:28px;width:280px;z-index:5}
+  .tt-idx{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:rgba(255,251,240,.35);text-transform:uppercase;margin-bottom:14px}
+  .tt-h2{font-size:42px;font-weight:700;line-height:.96;letter-spacing:-.03em;color:#fff;margin:0 0 14px}
+  .tt-em{font-style:normal;color:#EAB93F}
+  .tt-tagline{font-size:13px;line-height:1.55;color:rgba(255,255,255,.45);margin-bottom:18px}
+  .tt-legend{display:flex;gap:18px}
+  .tt-leg{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.45);font-family:"JetBrains Mono",monospace}
+  .tt-leg-pip{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
+  .tt-leg-pip--lead{background:#EAB93F}
+  .tt-spark{position:absolute;color:#EAB93F;z-index:3;line-height:1;animation:ttSpark 3s ease-in-out infinite;pointer-events:none;font-size:18px}
+  .tt-spark--sm{font-size:13px;animation-delay:1.5s}
+  @keyframes ttSpark{0%,100%{opacity:.35;transform:scale(1) rotate(0deg)}50%{opacity:.9;transform:scale(1.25) rotate(15deg)}}
+
+  .tt-node{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:5;width:160px;text-align:center}
+  .tt-circle{position:relative;width:78px;height:78px;border-radius:50%;border:2px solid rgba(255,255,255,.2);overflow:hidden;flex-shrink:0;background:#1a1d2e}
+  .tt-circle img{width:100%;height:100%;object-fit:cover;display:block}
+  .tt-circle--lead{width:104px;height:104px;border:3px solid #EAB93F;box-shadow:0 0 0 5px rgba(234,185,63,.12),0 0 28px rgba(234,185,63,.2)}
+  .tt-star-badge{position:absolute;top:0;right:0;width:20px;height:20px;background:#EAB93F;color:#0D0F18;border-radius:50%;font-size:9px;display:grid;place-items:center;font-weight:700;border:2px solid #0D0F18;transform:translate(30%,-30%)}
+  .tt-circle--lead .tt-star-badge{width:23px;height:23px;font-size:11px}
+  .tt-badge{display:inline-block;margin-top:9px;margin-bottom:4px;padding:4px 10px;border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);line-height:1.5;text-align:center;max-width:160px;white-space:normal}
+  .tt-badge--lead{background:rgba(234,185,63,.18);color:#EAB93F;border:1px solid rgba(234,185,63,.3)}
+  .tt-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.2;margin-bottom:3px}
+  .tt-desc{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
+
+  /* Lead variant — role pill (yellow) sits to the right of the photo, slightly
+     above photo center; name pill sits to the right of the photo, below the
+     badge. Only the description card flows below the photo. */
+  .tt-node--lead{position:absolute}
+  .tt-node--lead .tt-circle{margin-bottom:0}
+  .tt-node--lead .tt-badge{position:absolute;top:48px;left:50%;margin:0 0 0 62px;transform:translateY(-100%);white-space:nowrap;font-size:9px;padding:5px 11px;line-height:1.3;max-width:none;box-shadow:0 6px 14px -8px rgba(0,0,0,.55);z-index:3}
+  .tt-node--lead .tt-name{position:absolute;top:52px;left:50%;margin:0 0 0 62px;padding:4px 11px;border-radius:7px;background:rgba(13,15,24,.85);backdrop-filter:blur(2px);text-shadow:none;font-size:14px;white-space:nowrap;box-shadow:0 4px 12px -6px rgba(0,0,0,.55);z-index:3}
+  .tt-node--lead .tt-desc{margin-top:16px;padding:7px 11px;border-radius:9px;background:rgba(13,15,24,.9);border:1px solid rgba(234,185,63,.16);max-width:160px;text-shadow:none;box-shadow:0 6px 18px -10px rgba(0,0,0,.55)}
+
+  /* Readability over the dashed connection lines */
+  .tt-h2,.tt-tagline,.tt-idx{text-shadow:0 0 8px #0D0F18,0 0 4px #0D0F18}
+  .tt-node .tt-name,.tt-node .tt-desc{text-shadow:0 0 6px #0D0F18,0 0 3px #0D0F18}
+  .tt-node--lead .tt-name,.tt-node--lead .tt-desc{text-shadow:none}
+
+  .tt-footer{position:absolute;left:0;right:0;bottom:0;height:62px;background:rgba(234,185,63,.07);border-top:1px solid rgba(234,185,63,.15);display:flex;align-items:center;padding:0 36px;gap:32px;z-index:6}
+  .tt-footer-left{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .tt-footer-icon{width:30px;height:30px;object-fit:contain;display:block;filter:drop-shadow(0 3px 6px rgba(234,185,63,.35))}
+  .tt-footer-head{font-size:14px;font-weight:700;color:#fff;line-height:1.2;letter-spacing:-.01em}
+  .tt-footer-mid{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5;flex:1}
+  .tt-footer-cta{margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:9px;background:rgba(234,185,63,.12);border:1px solid rgba(234,185,63,.35);color:#EAB93F;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s;font-family:inherit}
+  .tt-footer-cta:hover{background:rgba(234,185,63,.22)}
+
+  /* Mobile / narrow viewports — switch the constellation to a vertical stack */
+  @media (max-width:768px){
+    #studio{padding:60px 0 0}
+    .tt-wrap{overflow:visible}
+    .tt-stage{position:relative;width:100%!important;height:auto!important;transform:none!important;padding:24px 18px 0;display:flex;flex-direction:column;align-items:center;gap:24px;overflow:visible}
+    .tt-svg,.tt-spark{display:none}
+    .tt-bg{position:absolute;inset:0}
+    .tt-header{position:relative!important;left:auto!important;top:auto!important;width:100%!important;text-align:center;margin-bottom:4px}
+    .tt-h2{font-size:32px}
+    .tt-tagline{margin-left:auto;margin-right:auto}
+    .tt-legend{justify-content:center}
+    .tt-node{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100%!important;max-width:300px}
+    .tt-node--lead .tt-badge{position:relative;top:auto;left:auto;margin:8px 0 0;transform:none}
+    .tt-node--lead .tt-name{position:relative;top:auto;left:auto;margin:6px 0 0;white-space:normal}
+    .tt-node--lead .tt-desc{max-width:280px}
+    .tt-footer{position:relative;left:auto;right:auto;bottom:auto;height:auto;flex-direction:column;padding:24px 20px;gap:14px;text-align:center;margin-top:18px}
+    .tt-footer-left{flex-direction:column;gap:6px;align-items:center}
+    .tt-footer-cta{margin-left:0}
+    .tt-footer-mid{text-align:center}
+  }
 
   /* ====== Contacts ====== */
   #contact{background:var(--bg);padding-bottom:80px}
@@ -245,7 +322,7 @@
   /* ====== Footer ====== */
   footer{background:var(--bg);padding:48px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:16px}
   footer .mono{color:var(--wordmark-strong,var(--ink))}
-  .backtop{display:inline-flex;align-items:center;gap:8px;background:var(--btn-primary-bg,var(--ink));color:var(--btn-primary-fg,var(--yellow));padding:10px 16px;border-radius:999px;font-weight:600;cursor:none}
+  .backtop{display:inline-flex;align-items:center;gap:8px;background:var(--btn-primary-bg,var(--ink));color:var(--btn-primary-fg,var(--yellow));padding:10px 16px;border-radius:999px;font-weight:600;cursor:pointer}
 
   /* ====== Reveal anim ====== */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -295,14 +372,6 @@
 </head>
 <body>
 <script src="snapjoy-theme.js"></script>
-
-<!-- Custom cursor -->
-<div class="cursor" id="cursor" aria-hidden="true">
-  <svg viewBox="0 0 24 24" fill="none">
-    <path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/>
-  </svg>
-</div>
-<div class="cursor-dot" id="cursorDot"></div>
 
 <!-- NAV -->
 <nav class="top" id="nav">
@@ -384,45 +453,77 @@
 </div>
 
 <!-- GAMES -->
-<section class="slab" id="games">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <div class="idx">01 — <span data-i18n="sec.games.idx">Shipped</span></div>
-        <h2 data-i18n="sec.games.h2">What we've made.</h2>
-      </div>
-      <div class="meta" data-i18n="sec.games.meta">One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.</div>
+<section id="games" class="anvil-section">
+  <div class="anvil-canvas" id="anvilCanvas">
+
+    <!-- Background -->
+    <div class="ab-bg-scene"></div>
+    <div class="ab-bg-fade"></div>
+    <div class="ab-hero"></div>
+    <div class="ab-background-frame"></div>
+    <div class="ab-frame-inner-pressed"></div>
+
+    <!-- Frame borders -->
+    <div class="ab-frame-top"></div>
+    <div class="ab-frame-bottom"></div>
+
+    <!-- Section header texts -->
+    <div class="ab-outer-texts">
+      <div class="ab-label">01 &nbsp;—&nbsp; SHIPPED</div>
+      <div class="ab-headline">What <span class="ab-headline-mid">we've</span> made<span class="ab-headline-dot">.</span></div>
+      <div class="ab-section-desc">One title out in the wild, still earning its keep.<br>Reviews mostly positive, players mostly loud.</div>
     </div>
 
-    <article class="game-card reveal">
-      <div class="art">
-        <img src="assets/anvil-saga-cover.jpg" alt="Anvil Saga cover art" />
+    <!-- Big game screenshot -->
+    <div class="ab-big-picture"></div>
+
+    <!-- Thumbnail strip -->
+    <div class="ab-thumb-strip">
+      <div class="ab-thumb-arrow ab-thumb-prev" id="abThumbPrev" role="button" tabindex="0" aria-label="Previous screenshot" data-hover></div>
+      <div class="ab-thumb-container"></div>
+      <div class="ab-thumbs">
+        <div class="ab-thumb is-active" data-index="0" data-hover></div>
+        <div class="ab-thumb" data-index="1" data-hover></div>
+        <div class="ab-thumb" data-index="2" data-hover></div>
+        <div class="ab-thumb" data-index="3" data-hover></div>
       </div>
-      <div class="body">
-        <div>
-          <span class="tag">
-            <svg width="10" height="10" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#FFD23F"/></svg>
-            <span data-i18n="anvil.tag">Launched · Steam</span>
-          </span>
-          <h3>Anvil Saga</h3>
-          <p class="desc" data-i18n="anvil.desc">A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.</p>
-        </div>
-        <div>
-          <div class="metrics">
-            <div class="m"><div class="k" data-i18n="anvil.m1">Revenue</div><div class="v mono" data-count-to="1.2">$1.2M</div></div>
-            <div class="m"><div class="k" data-i18n="anvil.m2">Platform</div><div class="v plain">Steam · PC</div></div>
-            <div class="m"><div class="k" data-i18n="anvil.m3">Reception</div><div class="v mono">84%</div></div>
-          </div>
-          <div class="game-cta" style="margin-top:28px">
-            <a class="btn steam" href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener" data-hover>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="9" r="3" fill="currentColor"/><circle cx="9" cy="15" r="2" fill="currentColor"/></svg>
-              <span data-i18n="anvil.cta1">View on Steam</span>
-            </a>
-            <a class="btn ghost-dark" data-hover data-i18n="anvil.cta2">Press kit</a>
-          </div>
-        </div>
+      <div class="ab-thumb-arrow ab-thumb-next" id="abThumbNext" role="button" tabindex="0" aria-label="Next screenshot" data-hover></div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="ab-game-name"></div>
+    <div class="ab-game-name-text" data-node-id="16:29">Anvil&nbsp;&nbsp;Saga</div>
+    <p class="ab-game-desc">A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.</p>
+
+    <!-- Metrics -->
+    <div class="ab-divider-h"></div>
+    <div class="ab-metrics">
+      <div class="ab-metric">
+        <div class="ab-metric-k">REVENUE</div>
+        <div class="ab-metric-v">$1.2M</div>
       </div>
-    </article>
+      <div class="ab-vdivider"></div>
+      <div class="ab-metric">
+        <div class="ab-metric-k">PLATFORM</div>
+        <div class="ab-metric-v ab-plain">PC</div>
+      </div>
+      <div class="ab-vdivider"></div>
+      <div class="ab-metric">
+        <div class="ab-metric-k">RECEPTION</div>
+        <div class="ab-metric-v">84%</div>
+      </div>
+    </div>
+
+    <!-- Steam button -->
+    <a class="ab-steam-btn" href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener" data-hover>
+      <span>View on Steam</span>
+    </a>
+    <img class="ab-steam-logo" src="assets/fig/steam-logo.png" alt="" />
+
+    <!-- Decorative characters -->
+    <div class="ab-blacksmith"></div>
+    <div class="ab-boat"></div>
+
   </div>
 </section>
 
@@ -474,36 +575,160 @@
   </div>
 </section>
 
-<!-- STUDIO -->
-<section class="slab" id="studio">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <div class="idx">03 — <span data-i18n="sec.studio.idx">The team</span></div>
-        <h2 data-i18n="sec.studio.h2">A small forge, loud output.</h2>
+<!-- STUDIO / TEAM CONSTELLATION -->
+<section id="studio" class="tt-wrap">
+  <div class="tt-stage" id="ttStage">
+
+    <div class="tt-bg"></div>
+
+    <!-- Section header (top-left) -->
+    <div class="tt-header">
+      <div class="tt-idx" data-i18n="tt.idx">03 — The Team</div>
+      <h2 class="tt-h2"><span data-i18n="tt.h2a">The crew</span><br><span data-i18n="tt.h2b">behind the</span><br><em class="tt-em" data-i18n="tt.em">games.</em></h2>
+      <p class="tt-tagline" data-i18n="tt.tagline">Nine roles. One mission.<br>We build worlds that hit.</p>
+      <div class="tt-legend">
+        <span class="tt-leg"><span class="tt-leg-pip tt-leg-pip--lead"></span><span data-i18n="tt.leg.lead">Leads</span></span>
+        <span class="tt-leg"><span class="tt-leg-pip"></span><span data-i18n="tt.leg.crew">The crew</span></span>
       </div>
-      <div class="meta" data-i18n="sec.studio.meta">Tight team, strong taste, zero committees.</div>
     </div>
 
-    <div class="studio-grid reveal">
-      <div class="studio-copy">
-        <p data-i18n="studio.p1">SnapJoy Games is a small independent studio. We build games we'd want to lose a weekend to — strong mechanics, a clear voice, and enough weirdness to stick in your head a week later.</p>
-        <p data-i18n="studio.p2">Our first shipped title, <em>Anvil Saga</em>, found its audience on Steam and earned us the runway to keep swinging. We're using that runway to make something stranger.</p>
-        <div class="team-strip" aria-label="Team">
-          <span class="avatar">KA</span>
-          <span class="avatar b">MR</span>
-          <span class="avatar c">SL</span>
-          <span class="avatar d">DY</span>
-          <span class="avatar e">+4</span>
+    <!-- Sparkle decorations -->
+    <div class="tt-spark" style="left:1320px;top:50px">✦</div>
+    <div class="tt-spark tt-spark--sm" style="left:740px;top:170px;animation-delay:.8s">✦</div>
+    <div class="tt-spark tt-spark--sm" style="left:1180px;top:380px;animation-delay:2s">✦</div>
+    <div class="tt-spark tt-spark--sm" style="left:760px;top:430px;animation-delay:1.2s">✦</div>
+
+    <!-- Connection lines.
+         Hierarchy:
+           CEO(720,75) → ArtHead(400,290), PR(720,290), PM(1040,290)
+           ArtHead(400,290) → Roman(240,510), Ksenia(400,510), Ivan(560,510)
+           PM(1040,290) → Narrative(960,510), Developer(1120,510)  -->
+    <svg class="tt-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="none">
+      <!-- CEO → Art Head -->
+      <path class="tt-path" d="M 720 75 C 720 200 400 180 400 290"/>
+      <!-- CEO → PR (straight) -->
+      <path class="tt-path" d="M 720 75 L 720 290"/>
+      <!-- CEO → Project Manager -->
+      <path class="tt-path" d="M 720 75 C 720 200 1040 180 1040 290"/>
+      <!-- Art Head → Roman -->
+      <path class="tt-path" d="M 400 290 C 400 410 240 410 240 510"/>
+      <!-- Art Head → Ksenia (straight) -->
+      <path class="tt-path" d="M 400 290 L 400 510"/>
+      <!-- Art Head → Ivan -->
+      <path class="tt-path" d="M 400 290 C 400 410 560 410 560 510"/>
+      <!-- Project Manager → Narrative Designer -->
+      <path class="tt-path" d="M 1040 290 C 1040 410 960 410 960 510"/>
+      <!-- Project Manager → Developer -->
+      <path class="tt-path" d="M 1040 290 C 1040 410 1120 410 1120 510"/>
+    </svg>
+
+    <!-- CEO (lead) — circle center (720, 75) -->
+    <div class="tt-node tt-node--lead" style="left:720px;top:23px">
+      <div class="tt-circle tt-circle--lead">
+        <img src="assets/team/timur.jpg" alt="Timur Shakirov" />
+        <div class="tt-star-badge">★</div>
+      </div>
+      <div class="tt-badge tt-badge--lead">CEO</div>
+      <div class="tt-name" data-i18n="tt.timur">Timur Shakirov</div>
+      <div class="tt-desc" data-i18n="tt.timur.desc">Steers the ship, sets the course, keeps us moving.</div>
+    </div>
+
+    <!-- Art Head (lead) — circle center (400, 290) -->
+    <div class="tt-node tt-node--lead" style="left:400px;top:238px">
+      <div class="tt-circle tt-circle--lead">
+        <img src="assets/team/vladimir.jpg" alt="Vladimir Dulov" />
+        <div class="tt-star-badge">★</div>
+      </div>
+      <div class="tt-badge tt-badge--lead" data-i18n="tt.vladimir.role">Art Head</div>
+      <div class="tt-name" data-i18n="tt.vladimir">Vladimir Dulov</div>
+      <div class="tt-desc" data-i18n="tt.vladimir.desc">Leads the art vision. Makes it beautiful.</div>
+    </div>
+
+    <!-- PR & Marketing (lead) — circle center (720, 290) -->
+    <div class="tt-node tt-node--lead" style="left:720px;top:238px">
+      <div class="tt-circle tt-circle--lead">
+        <img src="assets/team/lizaveta.jpg" alt="Lizaveta Goncharova" />
+        <div class="tt-star-badge">★</div>
+      </div>
+      <div class="tt-badge tt-badge--lead">PR &amp; Marketing</div>
+      <div class="tt-name" data-i18n="tt.lizaveta">Lizaveta Goncharova</div>
+      <div class="tt-desc" data-i18n="tt.lizaveta.desc">Shares our story. Finds our people.</div>
+    </div>
+
+    <!-- Project Manager / Head Developer (lead) — circle center (1040, 290) -->
+    <div class="tt-node tt-node--lead" style="left:1040px;top:238px">
+      <div class="tt-circle tt-circle--lead">
+        <img src="assets/team/bogdan.jpg" alt="Bogdan Goncharov" />
+        <div class="tt-star-badge">★</div>
+      </div>
+      <div class="tt-badge tt-badge--lead" data-i18n="tt.bogdan.role">Project Manager /<br>Head Developer</div>
+      <div class="tt-name" data-i18n="tt.bogdan">Bogdan Goncharov</div>
+      <div class="tt-desc" data-i18n="tt.bogdan.desc">Turns plans into playable things. Solves problems. Ships.</div>
+    </div>
+
+    <!-- 3D Artist Roman (crew) — circle center (240, 510) -->
+    <div class="tt-node" style="left:240px;top:471px">
+      <div class="tt-circle">
+        <img src="assets/team/roman.jpg" alt="Roman Buravlev" />
+      </div>
+      <div class="tt-badge" data-i18n="tt.3dartist">3D Artist</div>
+      <div class="tt-name" data-i18n="tt.roman">Roman Buravlev</div>
+      <div class="tt-desc" data-i18n="tt.roman.desc">Models worlds, brings them to life.</div>
+    </div>
+
+    <!-- 3D Artist Ksenia (crew) — circle center (400, 510) -->
+    <div class="tt-node" style="left:400px;top:471px">
+      <div class="tt-circle">
+        <img src="assets/team/ksenia.jpg" alt="Ksenia Soboleva" />
+      </div>
+      <div class="tt-badge" data-i18n="tt.3dartist">3D Artist</div>
+      <div class="tt-name" data-i18n="tt.ksenia">Ksenia Soboleva</div>
+      <div class="tt-desc" data-i18n="tt.ksenia.desc">Shapes, sculpts, adds soul.</div>
+    </div>
+
+    <!-- 3D Artist Ivan (crew) — circle center (560, 510) -->
+    <div class="tt-node" style="left:560px;top:471px">
+      <div class="tt-circle">
+        <img src="assets/team/ivan.jpg" alt="Ivan Zanorin" />
+      </div>
+      <div class="tt-badge" data-i18n="tt.3dartist">3D Artist</div>
+      <div class="tt-name" data-i18n="tt.ivan">Ivan Zanorin</div>
+      <div class="tt-desc" data-i18n="tt.ivan.desc">Details, props, perfects the vibe.</div>
+    </div>
+
+    <!-- Narrative Designer (crew) — circle center (960, 510) -->
+    <div class="tt-node" style="left:960px;top:471px">
+      <div class="tt-circle">
+        <img src="assets/team/odissey.jpg" alt="Odissey Pogosov" />
+      </div>
+      <div class="tt-badge" data-i18n="tt.odissey.role">Narrative Designer</div>
+      <div class="tt-name" data-i18n="tt.odissey">Odissey Pogosov</div>
+      <div class="tt-desc" data-i18n="tt.odissey.desc">Builds stories that stick in your head.</div>
+    </div>
+
+    <!-- Developer (crew) — circle center (1120, 510) -->
+    <div class="tt-node" style="left:1120px;top:471px">
+      <div class="tt-circle">
+        <img src="assets/team/marlen.jpg" alt="Marlen Tariguliev" />
+      </div>
+      <div class="tt-badge" data-i18n="tt.marlen.role">Developer</div>
+      <div class="tt-name" data-i18n="tt.marlen">Marlen Tariguliev</div>
+      <div class="tt-desc" data-i18n="tt.marlen.desc">Writes code. Breaks code. Makes magic.</div>
+    </div>
+
+    <!-- Footer bar -->
+    <div class="tt-footer">
+      <div class="tt-footer-left">
+        <img class="tt-footer-icon" src="assets/snapjoy-mark.png" alt="SnapJoy logo" />
+        <div>
+          <div class="tt-footer-head" data-i18n="tt.footer.head">Different roles.</div>
+          <div class="tt-footer-head" data-i18n="tt.footer.head2">Same obsession.</div>
         </div>
       </div>
-      <div class="values">
-        <div class="v"><div class="n">/ 01</div><h4 data-i18n="val.1.h">Craft over scope.</h4><p data-i18n="val.1.p">We'd rather cut a system than ship it half-cooked.</p></div>
-        <div class="v"><div class="n">/ 02</div><h4 data-i18n="val.2.h">Ship, then polish.</h4><p data-i18n="val.2.p">Games get better in players' hands. We show up every patch.</p></div>
-        <div class="v"><div class="n">/ 03</div><h4 data-i18n="val.3.h">Small by choice.</h4><p data-i18n="val.3.p">No committees, no filler. Decisions happen in a room of eight.</p></div>
-        <div class="v"><div class="n">/ 04</div><h4 data-i18n="val.4.h">Weird is a feature.</h4><p data-i18n="val.4.p">The moments people screenshot are the ones nobody asked us for.</p></div>
-      </div>
+      <div class="tt-footer-mid" data-i18n="tt.footer.mid">We're a small team with a big love for games.<br>Coffee, questions, iteration — every day.</div>
+      <a class="tt-footer-cta" href="#contact" data-i18n="tt.footer.cta">★ Let's make something unforgettable.</a>
     </div>
+
   </div>
 </section>
 
@@ -567,26 +792,127 @@
 </footer>
 
 <script>
-/* ============ Custom cursor ============ */
-const cur = document.getElementById('cursor');
-const dot = document.getElementById('cursorDot');
-let tx=0,ty=0,cx=0,cy=0;
-window.addEventListener('pointermove', e=>{
-  tx=e.clientX; ty=e.clientY;
-  dot.style.left=tx+'px'; dot.style.top=ty+'px';
-});
-function loop(){
-  cx += (tx-cx)*0.22; cy += (ty-cy)*0.22;
-  cur.style.left=cx+'px'; cur.style.top=cy+'px';
-  requestAnimationFrame(loop);
+/* ============ Anvil canvas scaling ============ */
+function scaleAnvil(){
+  const canvas = document.getElementById('anvilCanvas');
+  if(!canvas) return;
+  const scale = canvas.parentElement.offsetWidth / 1905;
+  canvas.style.transform = 'scale('+scale+')';
+  canvas.parentElement.style.height = Math.round(1110*scale)+'px';
 }
-loop();
-document.querySelectorAll('[data-hover], a, button').forEach(el=>{
-  el.addEventListener('pointerenter',()=>cur.classList.add('hover'));
-  el.addEventListener('pointerleave',()=>cur.classList.remove('hover'));
+/* ============ Team stage scaling ============ */
+function scaleTT(){
+  const stage = document.getElementById('ttStage');
+  if(!stage) return;
+  const w = stage.parentElement.offsetWidth;
+  if(w < 768){
+    /* mobile: let CSS @media handle the layout, drop the scaling */
+    stage.style.transform = '';
+    stage.parentElement.style.height = '';
+    return;
+  }
+  const scale = w / 1440;
+  stage.style.transform = 'scale('+scale+')';
+  stage.parentElement.style.height = Math.round(720*scale)+'px';
+}
+window.addEventListener('resize', ()=>{ scaleAnvil(); scaleTT(); });
+scaleAnvil(); scaleTT();
+
+/* ============ Anvil gallery ============ */
+const abBig = document.querySelector('.ab-big-picture');
+const abThumbs = Array.from(document.querySelectorAll('.ab-thumbs .ab-thumb'));
+const abPrev = document.getElementById('abThumbPrev');
+const abNext = document.getElementById('abThumbNext');
+const abSlides = [
+  { big: 'assets/fig/big-picture.png', thumb: 'assets/fig/small-preview.png' },
+  { big: 'assets/fig/big-picture-2.png', thumb: 'assets/fig/small-preview-2.png' },
+  { big: 'assets/fig/big-picture-3.png', thumb: 'assets/fig/small-preview-3.png' },
+  { big: 'assets/fig/big-picture-4.png', thumb: 'assets/fig/small-preview-4.png' }
+];
+let abIndex = 0;
+let abTransitionLock = false;
+let abAutoTimer = null;
+const AB_AUTO_DELAY = 4200;
+
+function setArrowPress(el){
+  if(!el) return;
+  el.classList.remove('is-pressed');
+  void el.offsetWidth;
+  el.classList.add('is-pressed');
+}
+
+function applyAnvilSlide(nextIdx){
+  if(!abBig || !abThumbs.length || abTransitionLock) return;
+  abTransitionLock = true;
+  const idx = (nextIdx + abSlides.length) % abSlides.length;
+  const slide = abSlides[idx];
+  abBig.classList.add('is-changing');
+  setTimeout(()=>{
+    abBig.style.backgroundImage = `url(${slide.big})`;
+    abIndex = idx;
+    abThumbs.forEach((thumb, i)=>{
+      thumb.classList.toggle('is-active', i === abIndex);
+    });
+    requestAnimationFrame(()=>{
+      abBig.classList.remove('is-changing');
+      setTimeout(()=>{ abTransitionLock = false; }, 220);
+    });
+  }, 130);
+}
+
+function scheduleAnvilAuto(){
+  if(abAutoTimer) clearTimeout(abAutoTimer);
+  abAutoTimer = setTimeout(()=>{
+    applyAnvilSlide(abIndex + 1);
+    scheduleAnvilAuto();
+  }, AB_AUTO_DELAY);
+}
+
+abThumbs.forEach((thumb, i)=>{
+  const slide = abSlides[i];
+  thumb.style.setProperty('--thumb-image', `url(${slide.thumb})`);
+  thumb.addEventListener('click', ()=>{
+    applyAnvilSlide(i);
+    scheduleAnvilAuto();
+  });
 });
 
-/* hero logo — static */
+if(abPrev){
+  abPrev.addEventListener('click', ()=>{
+    setArrowPress(abPrev);
+    applyAnvilSlide(abIndex - 1);
+    scheduleAnvilAuto();
+  });
+  abPrev.addEventListener('keydown', e=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      setArrowPress(abPrev);
+      applyAnvilSlide(abIndex - 1);
+      scheduleAnvilAuto();
+    }
+  });
+}
+
+if(abNext){
+  abNext.addEventListener('click', ()=>{
+    setArrowPress(abNext);
+    applyAnvilSlide(abIndex + 1);
+    scheduleAnvilAuto();
+  });
+  abNext.addEventListener('keydown', e=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      setArrowPress(abNext);
+      applyAnvilSlide(abIndex + 1);
+      scheduleAnvilAuto();
+    }
+  });
+}
+
+if(abSlides.length){
+  abBig.style.backgroundImage = `url(${abSlides[0].big})`;
+  scheduleAnvilAuto();
+}
 
 /* ============ Nav scrolled state ============ */
 const nav = document.getElementById('nav');
@@ -661,6 +987,22 @@ const I18N = {
     "sec.contact.idx":"Say hi",
     "contact.eyebrow":"Currently open to","contact.h3":"Press, publishers, good ideas.",
     "contact.p":"We read everything. Pitches, coverage requests, job applications — one inbox, fast replies.",
+    "tt.idx":"03 — The Team","tt.h2a":"The crew","tt.h2b":"behind the","tt.em":"games.",
+    "tt.tagline":"Nine roles. One mission.<br>We build worlds that hit.",
+    "tt.leg.lead":"Leads","tt.leg.crew":"The crew",
+    "tt.timur":"Timur Shakirov","tt.timur.desc":"Steers the ship, sets the course, keeps us moving.",
+    "tt.bogdan":"Bogdan Goncharov","tt.bogdan.role":"Project Manager /<br>Head Developer","tt.bogdan.desc":"Turns plans into playable things. Solves problems. Ships.",
+    "tt.vladimir":"Vladimir Dulov","tt.vladimir.role":"Art Head","tt.vladimir.desc":"Leads the art vision. Makes it beautiful.",
+    "tt.lizaveta":"Lizaveta Goncharova","tt.lizaveta.desc":"Shares our story. Finds our people.",
+    "tt.marlen":"Marlen Tariguliev","tt.marlen.role":"Developer","tt.marlen.desc":"Writes code. Breaks code. Makes magic.",
+    "tt.odissey":"Odissey Pogosov","tt.odissey.role":"Narrative Designer","tt.odissey.desc":"Builds stories that stick in your head.",
+    "tt.roman":"Roman Buravlev","tt.roman.desc":"Models worlds, brings them to life.",
+    "tt.ksenia":"Ksenia Soboleva","tt.ksenia.desc":"Shapes, sculpts, adds soul.",
+    "tt.ivan":"Ivan Zanorin","tt.ivan.desc":"Details, props, perfects the vibe.",
+    "tt.3dartist":"3D Artist",
+    "tt.footer.head":"Different roles.","tt.footer.head2":"Same obsession.",
+    "tt.footer.mid":"We're a small team with a big love for games.<br>Coffee, questions, iteration — every day.",
+    "tt.footer.cta":"★ Let's make something unforgettable.",
     "foot.back":"Back to top"
   },
   ru: {
@@ -690,6 +1032,22 @@ const I18N = {
     "sec.contact.idx":"Написать",
     "contact.eyebrow":"Сейчас открыты к","contact.h3":"Прессе, издателям, хорошим идеям.",
     "contact.p":"Читаем всё. Питчи, запросы на обзоры, резюме — один инбокс, быстрые ответы.",
+    "tt.idx":"03 — Команда","tt.h2a":"Команда","tt.h2b":"за","tt.em":"играми.",
+    "tt.tagline":"Девять ролей. Одна цель.<br>Мы строим миры, которые цепляют.",
+    "tt.leg.lead":"Лиды","tt.leg.crew":"Команда",
+    "tt.timur":"Тимур Шакиров","tt.timur.desc":"Ведёт корабль, задаёт курс, держит темп.",
+    "tt.bogdan":"Богдан Гончаров","tt.bogdan.role":"Project Manager /<br>Head Developer","tt.bogdan.desc":"Превращает планы в играбельное. Решает проблемы. Релизит.",
+    "tt.vladimir":"Владимир Дулов","tt.vladimir.role":"Art Head","tt.vladimir.desc":"Ведёт арт-видение. Делает красиво.",
+    "tt.lizaveta":"Лизавета Гончарова","tt.lizaveta.desc":"Рассказывает нашу историю. Находит наших людей.",
+    "tt.marlen":"Марлен Таригулиев","tt.marlen.role":"Разработчик","tt.marlen.desc":"Пишет код. Ломает код. Делает магию.",
+    "tt.odissey":"Одиссей Погосов","tt.odissey.role":"Нарративный дизайнер","tt.odissey.desc":"Сочиняет истории, которые остаются в голове.",
+    "tt.roman":"Роман Буравлев","tt.roman.desc":"Моделит миры, оживляет их.",
+    "tt.ksenia":"Ксения Соболева","tt.ksenia.desc":"Лепит, формирует, добавляет душу.",
+    "tt.ivan":"Иван Занорин","tt.ivan.desc":"Детали, пропсы, доводит вайб.",
+    "tt.3dartist":"3D-художник",
+    "tt.footer.head":"Разные роли.","tt.footer.head2":"Одна одержимость.",
+    "tt.footer.mid":"Маленькая команда с большой любовью к играм.<br>Кофе, вопросы, итерации — каждый день.",
+    "tt.footer.cta":"★ Давайте сделаем что-то незабываемое.",
     "foot.back":"Наверх"
   }
 };
