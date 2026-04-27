@@ -249,6 +249,7 @@
   @keyframes ttSpark{0%,100%{opacity:.35;transform:scale(1) rotate(0deg)}50%{opacity:.9;transform:scale(1.25) rotate(15deg)}}
 
   .tt-node{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:5;width:160px;text-align:center}
+  .tt-node--ksenia .tt-desc{max-width:120px}
   .tt-circle{position:relative;width:78px;height:78px;border-radius:50%;border:2px solid rgba(255,255,255,.2);overflow:hidden;flex-shrink:0;background:#1a1d2e}
   .tt-circle img{width:100%;height:100%;object-fit:cover;display:block}
   .tt-circle--lead{width:104px;height:104px;border:3px solid #EAB93F;box-shadow:0 0 0 5px rgba(234,185,63,.12),0 0 28px rgba(234,185,63,.2)}
@@ -256,6 +257,8 @@
   .tt-circle--lead .tt-star-badge{width:23px;height:23px;font-size:11px}
   .tt-badge{display:inline-block;margin-top:9px;margin-bottom:4px;padding:4px 10px;border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);line-height:1.5;text-align:center;max-width:160px;white-space:normal}
   .tt-badge--lead{background:rgba(234,185,63,.18);color:#EAB93F;border:1px solid rgba(234,185,63,.3)}
+  .tt-node:not(.tt-node--lead) .tt-circle{border:3px solid #EAB93F;box-shadow:0 0 0 4px rgba(234,185,63,.12),0 0 22px rgba(234,185,63,.2)}
+  .tt-node:not(.tt-node--lead) .tt-badge{background:rgba(234,185,63,.18);color:#EAB93F;border:1px solid rgba(234,185,63,.3)}
   .tt-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.2;margin-bottom:3px}
   .tt-desc{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
 
@@ -680,7 +683,7 @@
     </div>
 
     <!-- 3D Artist Ksenia (crew) — circle center (400, 510) -->
-    <div class="tt-node" style="left:400px;top:471px">
+    <div class="tt-node tt-node--ksenia" style="left:400px;top:471px">
       <div class="tt-circle">
         <img src="assets/team/ksenia.jpg" alt="Ksenia Soboleva" />
       </div>
