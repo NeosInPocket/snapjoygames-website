@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Anvil Saga — Section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFBF0;
+    --bg-2: #FFF4D1;
+    --ink: #1E2230;
+    --ink-2: #2A2F40;
+    --muted: #6B6F7E;
+    --yellow: #FFD23F;
+    --yellow-deep: #F2A900;
+    --yellow-soft: #FFE88A;
+    --line: rgba(30,34,48,.12);
+    --radius: 18px;
+    --card-surface: var(--ink);
+    --card-fg: var(--bg);
+    --card-fg-muted: rgba(255,251,240,.7);
+    --card-line: rgba(255,251,240,.12);
+    --card-art-fade: rgba(30,34,48,.9);
+    --shadow-card: rgba(30,34,48,.35);
+    --btn-primary-bg: var(--ink);
+    --btn-primary-fg: var(--yellow);
+    --yellow-tag-bg: rgba(255,210,63,.15);
+    --steam-fg: var(--ink);
+    --ghost-dark-fg: var(--bg);
+    --ghost-dark-border: rgba(255,251,240,.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 80px 48px;
+  }
+
+  /* Section header */
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+  .section-head h2 {
+    font-size: clamp(44px, 6vw, 92px);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: .95;
+    margin: 16px 0 0;
+  }
+  .idx {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: .16em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .meta {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  /* Game card */
+  .game-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--card-surface);
+    color: var(--card-fg);
+    isolation: isolate;
+    box-shadow: 0 40px 60px -40px var(--shadow-card);
+  }
+  .game-card .art {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-surface);
+    min-height: 100%;
+  }
+  .game-card .art img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform .8s cubic-bezier(.2,.7,.2,1);
+    transform: scale(1.01);
+  }
+  .game-card:hover .art img { transform: scale(1.04); }
+  .game-card .art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 70%, var(--card-art-fade) 99%);
+    pointer-events: none;
+  }
+  .game-card .body {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: var(--yellow-tag-bg);
+    color: var(--yellow);
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .game-card h3 {
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: .95;
+    margin: 18px 0 12px;
+  }
+  .game-card p.desc {
+    color: var(--card-fg-muted);
+    line-height: 1.5;
+    font-size: 16px;
+    max-width: 460px;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 28px 0 0;
+    border-top: 1px solid var(--card-line);
+  }
+  .metrics .m {
+    padding: 22px 16px;
+    border-right: 1px solid var(--card-line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .metrics .m:last-child { border-right: 0; }
+  .metrics .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,251,240,.5);
+    margin-bottom: 8px;
+  }
+  .metrics .v {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .metrics .v.plain {
+    color: var(--card-fg);
+    font-size: 20px;
+  }
+  .game-cta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 28px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform .15s, box-shadow .2s, background .2s, color .2s, border-color .2s;
+    text-decoration: none;
+  }
+  .btn.steam {
+    background: var(--yellow);
+    color: var(--steam-fg);
+  }
+  .btn.steam:hover { background: #fff; transform: translateY(-1px); }
+  .btn.ghost-dark {
+    background: transparent;
+    color: var(--ghost-dark-fg);
+    border: 1.5px solid var(--ghost-dark-border);
+  }
+  .btn.ghost-dark:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  @media (max-width: 980px) {
+    .wrap { padding: 48px 24px; }
+    .section-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .game-card { grid-template-columns: 1fr; }
+    .game-card .art { aspect-ratio: 16/9; min-height: 0; }
+    .game-card .art img { object-fit: contain; }
+    .game-card .art::after { background: linear-gradient(180deg, transparent 60%, var(--card-surface) 98%); }
+    .game-card .body { padding: 32px; }
+    .metrics { grid-template-columns: 1fr; }
+    .metrics .m { border-right: 0; border-bottom: 1px solid var(--card-line); padding: 16px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="section-head">
+    <div>
+      <div class="idx">01 — Shipped</div>
+      <h2>What we've made.</h2>
+    </div>
+    <div class="meta">One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.</div>
+  </div>
+
+  <article class="game-card">
+    <div class="art">
+      <img src="assets/anvil-saga-cover.jpg" alt="Anvil Saga cover art" />
+    </div>
+    <div class="body">
+      <div>
+        <span class="tag">
+          <svg width="10" height="10" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#FFD23F"/></svg>
+          Launched · Steam
+        </span>
+        <h3>Anvil Saga</h3>
+        <p class="desc">A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.</p>
+      </div>
+      <div>
+        <div class="metrics">
+          <div class="m">
+            <div class="k">Revenue</div>
+            <div class="v mono">$1.2M</div>
+          </div>
+          <div class="m">
+            <div class="k">Platform</div>
+            <div class="v plain">Steam · PC</div>
+          </div>
+          <div class="m">
+            <div class="k">Reception</div>
+            <div class="v mono">84%</div>
+          </div>
+        </div>
+        <div class="game-cta">
+          <a class="btn steam" href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="9" r="3" fill="currentColor"/><circle cx="9" cy="15" r="2" fill="currentColor"/></svg>
+            View on Steam
+          </a>
+          <a class="btn ghost-dark" href="#">Press kit</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</div>
+</body>
+</html>
