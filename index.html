@@ -102,10 +102,10 @@
 
   /* ====== Marquee ====== */
   .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--marquee-bg,var(--ink));color:var(--marquee-fg,var(--yellow));overflow:hidden;padding:18px 0;position:relative;z-index:1}
-  .marquee .track{display:flex;gap:56px;white-space:nowrap;animation:scroll var(--marquee-dur,40s) linear infinite;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:15px;letter-spacing:.06em}
+  .marquee .track{display:flex;gap:56px;white-space:nowrap;width:max-content;will-change:transform;animation:scroll var(--marquee-dur,40s) linear infinite;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:15px;letter-spacing:.06em}
   .marquee .track span{display:inline-flex;align-items:center;gap:56px}
   .marquee .star-inline{display:inline-block;width:14px;height:14px}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 28px))}}
 
   /* ====== Section scaffold ====== */
   section.slab{position:relative;padding:140px 48px}
@@ -447,6 +447,9 @@
 <div class="marquee" aria-hidden="true">
   <div class="track">
     <span data-i18n="marq">
+      SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·
+    </span>
+    <span data-i18n="marq" aria-hidden="true">
       SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·
     </span>
   </div>
