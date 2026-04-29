@@ -229,12 +229,12 @@
   }
 
   /* ====== Team Constellation ====== */
-  #studio{display:none;padding:0;background:#0D0F18;overflow:hidden;color:#fff}
+  #studio{padding:0;background:#0D0F18;overflow:hidden;color:#fff}
   .tt-wrap{position:relative;width:100%;overflow:hidden}
-  .tt-stage{position:relative;width:1440px;height:720px;transform-origin:top left;overflow:hidden}
+  .tt-stage{position:relative;width:1440px;height:auto;min-height:560px;transform-origin:top left;overflow:hidden}
   .tt-bg{position:absolute;inset:0;background:radial-gradient(ellipse 900px 480px at 50% 45%,#171b2e 0%,#0D0F18 70%)}
   .tt-bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
-  .tt-svg{position:absolute;left:0;top:0;width:1440px;height:720px;pointer-events:none;z-index:2}
+  .tt-svg{display:none;position:absolute;left:0;top:0;width:1440px;height:720px;pointer-events:none;z-index:2}
   .tt-path{fill:none;stroke:#EAB93F;stroke-width:2.5;stroke-dasharray:10 7;opacity:.4}
   .tt-header{position:absolute;left:32px;top:28px;width:280px;z-index:5}
   .tt-idx{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:rgba(255,251,240,.35);text-transform:uppercase;margin-bottom:14px}
@@ -249,35 +249,35 @@
   .tt-spark--sm{font-size:13px;animation-delay:1.5s}
   @keyframes ttSpark{0%,100%{opacity:.35;transform:scale(1) rotate(0deg)}50%{opacity:.9;transform:scale(1.25) rotate(15deg)}}
 
-  .tt-node{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:5;width:160px;text-align:center}
-  .tt-node--ksenia .tt-desc{max-width:120px}
-  .tt-circle{position:relative;width:78px;height:78px;border-radius:50%;border:2px solid rgba(255,255,255,.2);overflow:hidden;flex-shrink:0;background:#1a1d2e}
-  .tt-circle img{width:100%;height:100%;object-fit:cover;display:block}
-  .tt-circle--lead{width:104px;height:104px;border:3px solid #EAB93F;box-shadow:0 0 0 5px rgba(234,185,63,.12),0 0 28px rgba(234,185,63,.2)}
-  .tt-star-badge{position:absolute;top:0;right:0;width:20px;height:20px;background:#EAB93F;color:#0D0F18;border-radius:50%;font-size:9px;display:grid;place-items:center;font-weight:700;border:2px solid #0D0F18;transform:translate(30%,-30%)}
-  .tt-circle--lead .tt-star-badge{width:23px;height:23px;font-size:11px}
-  .tt-badge{display:inline-block;margin-top:9px;margin-bottom:4px;padding:4px 10px;border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);line-height:1.5;text-align:center;max-width:160px;white-space:normal}
-  .tt-badge--lead{background:rgba(234,185,63,.18);color:#EAB93F;border:1px solid rgba(234,185,63,.3)}
-  .tt-node:not(.tt-node--lead) .tt-circle{border:3px solid #EAB93F;box-shadow:0 0 0 4px rgba(234,185,63,.12),0 0 22px rgba(234,185,63,.2)}
-  .tt-node:not(.tt-node--lead) .tt-badge{background:rgba(234,185,63,.18);color:#EAB93F;border:1px solid rgba(234,185,63,.3)}
-  .tt-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.2;margin-bottom:3px}
-  .tt-desc{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
+  .tt-panels{position:absolute;left:300px;right:26px;top:34px;bottom:auto;display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding-bottom:34px;z-index:5}
+  .tt-row{display:grid;gap:10px}
+  .tt-row.top{grid-template-columns:1fr 1.45fr}
+  .tt-row.bottom{grid-template-columns:1fr;margin-top:0}
+  .tt-dept{position:relative;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 14px 24px;backdrop-filter:blur(2px);overflow:hidden}
+  .tt-dept::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 86% 16%,rgba(234,185,63,.14),transparent 30%)}
+  .tt-dept.production{background:linear-gradient(130deg,rgba(44,40,26,.78),rgba(17,20,30,.74))}
+  .tt-dept.art{background:linear-gradient(130deg,rgba(42,34,70,.5),rgba(17,20,38,.76))}
+  .tt-dept.dev{background:linear-gradient(130deg,rgba(20,35,62,.6),rgba(12,18,34,.78))}
+  .tt-dept-title{font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:.1em;text-transform:uppercase;color:#EAB93F;font-weight:700;padding-left:18px}
+  .tt-dept-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:4px;margin-bottom:26px;padding-left:18px}
+  .tt-people{margin-top:0;display:grid;gap:8px}
+  .tt-people.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tt-people.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tt-people.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .tt-person{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+  .tt-avatar{width:86px;height:86px;border-radius:50%;overflow:hidden;border:2px solid #EAB93F;box-shadow:0 0 0 3px rgba(234,185,63,.14),0 0 18px rgba(234,185,63,.18)}
+  .tt-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .tt-role{display:inline-block;padding:4px 9px;border-radius:999px;border:1px solid rgba(234,185,63,.32);background:rgba(234,185,63,.15);font-family:"JetBrains Mono",monospace;font-size:9px;line-height:1.4;letter-spacing:.1em;text-transform:uppercase;color:#EAB93F;margin-bottom:4px}
+  .tt-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.2;margin-bottom:3px}
+  .tt-desc{font-size:12px;line-height:1.35;color:rgba(255,255,255,.58);max-width:190px}
+  .tt-dept.dev .tt-person{display:grid;grid-template-columns:100px 1fr;align-items:center;text-align:left;gap:12px}
+  .tt-dept.dev .tt-people{padding:0 30px}
+  .tt-dept.dev .tt-avatar{width:96px;height:96px}
+  .tt-dept.dev .tt-desc{max-width:250px}
 
-  /* Lead variant — role pill (yellow) sits to the right of the photo, slightly
-     above photo center; name pill sits to the right of the photo, below the
-     badge. Only the description card flows below the photo. */
-  .tt-node--lead{position:absolute}
-  .tt-node--lead .tt-circle{margin-bottom:0}
-  .tt-node--lead .tt-badge{position:absolute;top:48px;left:50%;margin:0 0 0 62px;transform:translateY(-100%);white-space:nowrap;font-size:9px;padding:5px 11px;line-height:1.3;max-width:none;box-shadow:0 6px 14px -8px rgba(0,0,0,.55);z-index:3}
-  .tt-node--lead .tt-name{position:absolute;top:52px;left:50%;margin:0 0 0 62px;padding:4px 11px;border-radius:7px;background:rgba(13,15,24,.85);backdrop-filter:blur(2px);text-shadow:none;font-size:14px;white-space:nowrap;box-shadow:0 4px 12px -6px rgba(0,0,0,.55);z-index:3}
-  .tt-node--lead .tt-desc{margin-top:16px;padding:7px 11px;border-radius:9px;background:rgba(13,15,24,.9);border:1px solid rgba(234,185,63,.16);max-width:160px;text-shadow:none;box-shadow:0 6px 18px -10px rgba(0,0,0,.55)}
-
-  /* Readability over the dashed connection lines */
   .tt-h2,.tt-tagline,.tt-idx{text-shadow:0 0 8px #0D0F18,0 0 4px #0D0F18}
-  .tt-node .tt-name,.tt-node .tt-desc{text-shadow:0 0 6px #0D0F18,0 0 3px #0D0F18}
-  .tt-node--lead .tt-name,.tt-node--lead .tt-desc{text-shadow:none}
 
-  .tt-footer{position:absolute;left:0;right:0;bottom:0;height:62px;background:rgba(234,185,63,.07);border-top:1px solid rgba(234,185,63,.15);display:flex;align-items:center;padding:0 36px;gap:32px;z-index:6}
+  .tt-footer{position:absolute;left:0;right:0;bottom:0;height:52px;background:rgba(234,185,63,.07);border-top:1px solid rgba(234,185,63,.15);display:flex;align-items:center;padding:0 28px;gap:24px;z-index:6}
   .tt-footer-left{display:flex;align-items:center;gap:14px;flex-shrink:0}
   .tt-footer-icon{width:30px;height:30px;object-fit:contain;display:block;filter:drop-shadow(0 3px 6px rgba(234,185,63,.35))}
   .tt-footer-head{font-size:14px;font-weight:700;color:#fff;line-height:1.2;letter-spacing:-.01em}
@@ -295,11 +295,9 @@
     .tt-header{position:relative!important;left:auto!important;top:auto!important;width:100%!important;text-align:center;margin-bottom:4px}
     .tt-h2{font-size:32px}
     .tt-tagline{margin-left:auto;margin-right:auto}
-    .tt-legend{justify-content:center}
-    .tt-node{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100%!important;max-width:300px}
-    .tt-node--lead .tt-badge{position:relative;top:auto;left:auto;margin:8px 0 0;transform:none}
-    .tt-node--lead .tt-name{position:relative;top:auto;left:auto;margin:6px 0 0;white-space:normal}
-    .tt-node--lead .tt-desc{max-width:280px}
+    .tt-panels{position:relative;left:auto;right:auto;top:auto;width:100%;padding:0 0 6px}
+    .tt-row,.tt-row.top,.tt-row.bottom{grid-template-columns:1fr}
+    .tt-people.two,.tt-people.three,.tt-people.four{grid-template-columns:1fr}
     .tt-footer{position:relative;left:auto;right:auto;bottom:auto;height:auto;flex-direction:column;padding:24px 20px;gap:14px;text-align:center;margin-top:18px}
     .tt-footer-left{flex-direction:column;gap:6px;align-items:center}
     .tt-footer-cta{margin-left:0}
@@ -373,6 +371,7 @@
     .values{grid-template-columns:1fr}
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <script src="snapjoy-theme.js"></script>
@@ -600,122 +599,101 @@
     <div class="tt-spark tt-spark--sm" style="left:1180px;top:380px;animation-delay:2s">✦</div>
     <div class="tt-spark tt-spark--sm" style="left:760px;top:430px;animation-delay:1.2s">✦</div>
 
-    <!-- Connection lines.
-         Hierarchy:
-           CEO(720,75) → ArtHead(400,290), PR(720,290), PM(1040,290)
-           ArtHead(400,290) → Roman(240,510), Ksenia(400,510), Ivan(560,510)
-           PM(1040,290) → Narrative(960,510), Developer(1120,510)  -->
-    <svg class="tt-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="none">
-      <!-- CEO → Art Head -->
-      <path class="tt-path" d="M 720 75 C 720 200 400 180 400 290"/>
-      <!-- CEO → PR (straight) -->
-      <path class="tt-path" d="M 720 75 L 720 290"/>
-      <!-- CEO → Project Manager -->
-      <path class="tt-path" d="M 720 75 C 720 200 1040 180 1040 290"/>
-      <!-- Art Head → Roman -->
-      <path class="tt-path" d="M 400 290 C 400 410 240 410 240 510"/>
-      <!-- Art Head → Ksenia (straight) -->
-      <path class="tt-path" d="M 400 290 L 400 510"/>
-      <!-- Art Head → Ivan -->
-      <path class="tt-path" d="M 400 290 C 400 410 560 410 560 510"/>
-      <!-- Project Manager → Narrative Designer -->
-      <path class="tt-path" d="M 1040 290 C 1040 410 960 410 960 510"/>
-      <!-- Project Manager → Developer -->
-      <path class="tt-path" d="M 1040 290 C 1040 410 1120 410 1120 510"/>
-    </svg>
-
-    <!-- CEO (lead) — circle center (720, 75) -->
-    <div class="tt-node tt-node--lead" style="left:720px;top:23px">
-      <div class="tt-circle tt-circle--lead">
-        <img src="assets/team/timur.jpg" alt="Timur Shakirov" />
-        <div class="tt-star-badge">★</div>
+    <div class="tt-panels">
+      <div class="tt-row top">
+        <article class="tt-dept production">
+          <div class="tt-dept-title">Production</div>
+          <div class="tt-dept-sub">Setting direction. Sharing the story.</div>
+          <div class="tt-people two">
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/timur.jpg" alt="Timur Shakirov" /></div>
+              <div>
+                <div class="tt-role">CEO</div>
+                <div class="tt-name" data-i18n="tt.timur">Timur Shakirov</div>
+                <div class="tt-desc" data-i18n="tt.timur.desc">Steers the ship, sets the course, keeps us moving.</div>
+              </div>
+            </div>
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/lizaveta.jpg" alt="Lizaveta Goncharova" /></div>
+              <div>
+                <div class="tt-role">PR &amp; Marketing</div>
+                <div class="tt-name" data-i18n="tt.lizaveta">Lizaveta Goncharova</div>
+                <div class="tt-desc" data-i18n="tt.lizaveta.desc">Shares our story. Finds our people.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="tt-dept art">
+          <div class="tt-dept-title">Art Department</div>
+          <div class="tt-dept-sub">Imagines it first. Makes it real.</div>
+          <div class="tt-people four">
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/vladimir.jpg" alt="Vladimir Dulov" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.vladimir.role">Art Head</div>
+                <div class="tt-name" data-i18n="tt.vladimir">Vladimir Dulov</div>
+                <div class="tt-desc" data-i18n="tt.vladimir.desc">Leads the art vision. Makes it beautiful.</div>
+              </div>
+            </div>
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/ivan.jpg" alt="Ivan Zanorin" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.3dartist">3D Artist</div>
+                <div class="tt-name" data-i18n="tt.ivan">Ivan Zanorin</div>
+                <div class="tt-desc" data-i18n="tt.ivan.desc">Details, props, perfects the vibe.</div>
+              </div>
+            </div>
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/ksenia.jpg" alt="Ksenia Soboleva" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.3dartist">3D Artist</div>
+                <div class="tt-name" data-i18n="tt.ksenia">Ksenia Soboleva</div>
+                <div class="tt-desc" data-i18n="tt.ksenia.desc">Shapes, sculpts, adds soul.</div>
+              </div>
+            </div>
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/roman.jpg" alt="Roman Buravlev" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.3dartist">3D Artist</div>
+                <div class="tt-name" data-i18n="tt.roman">Roman Buravlev</div>
+                <div class="tt-desc" data-i18n="tt.roman.desc">Models worlds, brings them to life.</div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
-      <div class="tt-badge tt-badge--lead">CEO</div>
-      <div class="tt-name" data-i18n="tt.timur">Timur Shakirov</div>
-      <div class="tt-desc" data-i18n="tt.timur.desc">Steers the ship, sets the course, keeps us moving.</div>
-    </div>
-
-    <!-- Art Head (lead) — circle center (400, 290) -->
-    <div class="tt-node tt-node--lead" style="left:400px;top:238px">
-      <div class="tt-circle tt-circle--lead">
-        <img src="assets/team/vladimir.jpg" alt="Vladimir Dulov" />
-        <div class="tt-star-badge">★</div>
+      <div class="tt-row bottom">
+        <article class="tt-dept dev">
+          <div class="tt-dept-title">Development Department</div>
+          <div class="tt-dept-sub">Turns ideas into playable things. Solves problems. Ships.</div>
+          <div class="tt-people three">
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/bogdan.jpg" alt="Bogdan Goncharov" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.bogdan.role">Project Manager /<br>Head Developer</div>
+                <div class="tt-name" data-i18n="tt.bogdan">Bogdan Goncharov</div>
+                <div class="tt-desc" data-i18n="tt.bogdan.desc">Turns plans into playable things. Solves problems. Ships.</div>
+              </div>
+            </div>
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/marlen.jpg" alt="Marlen Tariguliev" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.marlen.role">Developer</div>
+                <div class="tt-name" data-i18n="tt.marlen">Marlen Tariguliev</div>
+                <div class="tt-desc" data-i18n="tt.marlen.desc">Writes code. Breaks code. Makes magic.</div>
+              </div>
+            </div>
+            <div class="tt-person">
+              <div class="tt-avatar"><img src="assets/team/odissey.jpg" alt="Odissey Pogosov" /></div>
+              <div>
+                <div class="tt-role" data-i18n="tt.odissey.role">Narrative Designer</div>
+                <div class="tt-name" data-i18n="tt.odissey">Odissey Pogosov</div>
+                <div class="tt-desc" data-i18n="tt.odissey.desc">Builds stories that stick in your head.</div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
-      <div class="tt-badge tt-badge--lead" data-i18n="tt.vladimir.role">Art Head</div>
-      <div class="tt-name" data-i18n="tt.vladimir">Vladimir Dulov</div>
-      <div class="tt-desc" data-i18n="tt.vladimir.desc">Leads the art vision. Makes it beautiful.</div>
-    </div>
-
-    <!-- PR & Marketing (lead) — circle center (720, 290) -->
-    <div class="tt-node tt-node--lead" style="left:720px;top:238px">
-      <div class="tt-circle tt-circle--lead">
-        <img src="assets/team/lizaveta.jpg" alt="Lizaveta Goncharova" />
-        <div class="tt-star-badge">★</div>
-      </div>
-      <div class="tt-badge tt-badge--lead">PR &amp; Marketing</div>
-      <div class="tt-name" data-i18n="tt.lizaveta">Lizaveta Goncharova</div>
-      <div class="tt-desc" data-i18n="tt.lizaveta.desc">Shares our story. Finds our people.</div>
-    </div>
-
-    <!-- Project Manager / Head Developer (lead) — circle center (1040, 290) -->
-    <div class="tt-node tt-node--lead" style="left:1040px;top:238px">
-      <div class="tt-circle tt-circle--lead">
-        <img src="assets/team/bogdan.jpg" alt="Bogdan Goncharov" />
-        <div class="tt-star-badge">★</div>
-      </div>
-      <div class="tt-badge tt-badge--lead" data-i18n="tt.bogdan.role">Project Manager /<br>Head Developer</div>
-      <div class="tt-name" data-i18n="tt.bogdan">Bogdan Goncharov</div>
-      <div class="tt-desc" data-i18n="tt.bogdan.desc">Turns plans into playable things. Solves problems. Ships.</div>
-    </div>
-
-    <!-- 3D Artist Roman (crew) — circle center (240, 510) -->
-    <div class="tt-node" style="left:240px;top:471px">
-      <div class="tt-circle">
-        <img src="assets/team/roman.jpg" alt="Roman Buravlev" />
-      </div>
-      <div class="tt-badge" data-i18n="tt.3dartist">3D Artist</div>
-      <div class="tt-name" data-i18n="tt.roman">Roman Buravlev</div>
-      <div class="tt-desc" data-i18n="tt.roman.desc">Models worlds, brings them to life.</div>
-    </div>
-
-    <!-- 3D Artist Ksenia (crew) — circle center (400, 510) -->
-    <div class="tt-node tt-node--ksenia" style="left:400px;top:471px">
-      <div class="tt-circle">
-        <img src="assets/team/ksenia.jpg" alt="Ksenia Soboleva" />
-      </div>
-      <div class="tt-badge" data-i18n="tt.3dartist">3D Artist</div>
-      <div class="tt-name" data-i18n="tt.ksenia">Ksenia Soboleva</div>
-      <div class="tt-desc" data-i18n="tt.ksenia.desc">Shapes, sculpts, adds soul.</div>
-    </div>
-
-    <!-- 3D Artist Ivan (crew) — circle center (560, 510) -->
-    <div class="tt-node" style="left:560px;top:471px">
-      <div class="tt-circle">
-        <img src="assets/team/ivan.jpg" alt="Ivan Zanorin" />
-      </div>
-      <div class="tt-badge" data-i18n="tt.3dartist">3D Artist</div>
-      <div class="tt-name" data-i18n="tt.ivan">Ivan Zanorin</div>
-      <div class="tt-desc" data-i18n="tt.ivan.desc">Details, props, perfects the vibe.</div>
-    </div>
-
-    <!-- Narrative Designer (crew) — circle center (960, 510) -->
-    <div class="tt-node" style="left:960px;top:471px">
-      <div class="tt-circle">
-        <img src="assets/team/odissey.jpg" alt="Odissey Pogosov" />
-      </div>
-      <div class="tt-badge" data-i18n="tt.odissey.role">Narrative Designer</div>
-      <div class="tt-name" data-i18n="tt.odissey">Odissey Pogosov</div>
-      <div class="tt-desc" data-i18n="tt.odissey.desc">Builds stories that stick in your head.</div>
-    </div>
-
-    <!-- Developer (crew) — circle center (1120, 510) -->
-    <div class="tt-node" style="left:1120px;top:471px">
-      <div class="tt-circle">
-        <img src="assets/team/marlen.jpg" alt="Marlen Tariguliev" />
-      </div>
-      <div class="tt-badge" data-i18n="tt.marlen.role">Developer</div>
-      <div class="tt-name" data-i18n="tt.marlen">Marlen Tariguliev</div>
-      <div class="tt-desc" data-i18n="tt.marlen.desc">Writes code. Breaks code. Makes magic.</div>
     </div>
 
     <!-- Footer bar -->
@@ -806,18 +784,30 @@ function scaleAnvil(){
 function scaleTT(){
   const stage = document.getElementById('ttStage');
   if(!stage) return;
-  const w = stage.parentElement.offsetWidth;
+  const wrap = stage.parentElement;
+  const w = wrap.offsetWidth;
   if(w < 768){
     /* mobile: let CSS @media handle the layout, drop the scaling */
     stage.style.transform = '';
-    stage.parentElement.style.height = '';
+    stage.style.height = '';
+    wrap.style.height = '';
     return;
   }
+  /* Match stage height to content so the footer stays ~34px below the last dept (
+     symmetrical to tt-panels top:34 — padding-bottom handles in-card clearance). Fixed 720px left a tall empty band above the footer. */
+  const panels = stage.querySelector('.tt-panels');
+  const footer = stage.querySelector('.tt-footer');
+  const fh = footer ? footer.offsetHeight : 52;
+  const pt = panels ? panels.offsetTop : 34;
+  const ph = panels ? panels.offsetHeight : 440;
+  const designH = Math.round(pt + ph + fh);
+  stage.style.height = designH + 'px';
   const scale = w / 1440;
   stage.style.transform = 'scale('+scale+')';
-  stage.parentElement.style.height = Math.round(720*scale)+'px';
+  wrap.style.height = Math.round(designH * scale)+'px';
 }
 window.addEventListener('resize', ()=>{ scaleAnvil(); scaleTT(); });
+window.addEventListener('load', ()=>{ scaleTT(); requestAnimationFrame(scaleTT); });
 scaleAnvil(); scaleTT();
 
 /* ============ Anvil gallery ============ */
@@ -961,98 +951,136 @@ const revIO = new IntersectionObserver(entries=>{
 revIO.observe(rev);
 
 /* ============ i18n ============ */
-const I18N = {
-  en: {
-    "brand":"SnapJoy Games",
-    "nav.games":"Games","nav.next":"What's next","nav.studio":"Studio","nav.contact":"Contact",
-    "cta.wishlist":"Wishlist on Steam","cta.see":"See our games","cta.talk":"Let's talk",
-    "hero.eyebrow":"Indie studio · Est. 2019",
-    "hero.h1.a":"We make games","hero.h1.b":"that ","hero.h1.hit":"hit",
-    "hero.sub":"A tiny studio with a single rule — ship the kind of games we'd stay up late to play. One shipped, one under the hood, more sparks coming.",
-    "stat.revenue":"Lifetime revenue","stat.shipped":"Shipped titles","stat.wip":"In the forge",
-    "marq":"SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·",
-    "sec.games.idx":"Shipped","sec.games.h2":"What we've made.","sec.games.meta":"One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.",
-    "anvil.tag":"Launched · Steam","anvil.desc":"A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.",
-    "anvil.m1":"Revenue","anvil.m2":"Platform","anvil.m3":"Reception","anvil.cta1":"View on Steam","anvil.cta2":"Press kit",
-    "sec.next.idx":"In development","sec.next.h2":"Derailed.","sec.next.meta":"Our second project. A single-player narrative adventure about epidemics, empires, and the things that crawl out when a country starts to fracture.",
-    "derailed.badge":"In development","derailed.tag":"Next from SnapJoy","derailed.sub":"Victorian · Gothic · Narrative",
-    "derailed.p":"An island nation — coincidentally resembling a Victorian steampunk Britain — is gripped by a mysterious illness with shifting paranormal symptoms, lethal for most who catch it. The state dispatches us to trace the source of the outbreak and, if possible, stop it. We travel city to village: heal patients, banish demons, and talk with locals to uncover what's really behind the plague.",
-    "derailed.m1":"Setting","derailed.m1v":"Alt-Victorian steampunk","derailed.m2":"Genre","derailed.m2v":"Narrative adventure/Body horror","derailed.m3":"Platform","derailed.m4":"Release",
-    "tl.1":"Concept","tl.2":"Production start","tl.3":"First demo","tl.4":"Playable demo","tl.5":"Release",
-    "sec.studio.idx":"The team","sec.studio.h2":"A small forge, loud output.","sec.studio.meta":"Tight team, strong taste, zero committees.",
-    "studio.p1":"SnapJoy Games is a small independent studio. We build games we'd want to lose a weekend to — strong mechanics, a clear voice, and enough weirdness to stick in your head a week later.",
-    "studio.p2":"Our first shipped title, <em>Anvil Saga</em>, found its audience on Steam and earned us the runway to keep swinging. We're using that runway to make something stranger.",
-    "val.1.h":"Craft over scope.","val.1.p":"We'd rather cut a system than ship it half-cooked.",
-    "val.2.h":"Ship, then polish.","val.2.p":"Games get better in players' hands. We show up every patch.",
-    "val.3.h":"Small by choice.","val.3.p":"No committees, no filler. Decisions happen in a room of eight.",
-    "val.4.h":"Weird is a feature.","val.4.p":"The moments people screenshot are the ones nobody asked us for.",
-    "sec.contact.idx":"Say hi",
-    "contact.eyebrow":"Currently open to","contact.h3":"Press, publishers, good ideas.",
-    "contact.p":"We read everything. Pitches, coverage requests, job applications — one inbox, fast replies.",
-    "tt.idx":"03 — The Team","tt.h2a":"The crew","tt.h2b":"behind the","tt.em":"games.",
-    "tt.tagline":"Nine roles. One mission.<br>We build worlds that hit.",
-    "tt.leg.lead":"Leads","tt.leg.crew":"The crew",
-    "tt.timur":"Timur Shakirov","tt.timur.desc":"Steers the ship, sets the course, keeps us moving.",
-    "tt.bogdan":"Bogdan Goncharov","tt.bogdan.role":"Project Manager /<br>Head Developer","tt.bogdan.desc":"Turns plans into playable things. Solves problems. Ships.",
-    "tt.vladimir":"Vladimir Dulov","tt.vladimir.role":"Art Head","tt.vladimir.desc":"Leads the art vision. Makes it beautiful.",
-    "tt.lizaveta":"Lizaveta Goncharova","tt.lizaveta.desc":"Shares our story. Finds our people.",
-    "tt.marlen":"Marlen Tariguliev","tt.marlen.role":"Developer","tt.marlen.desc":"Writes code. Breaks code. Makes magic.",
-    "tt.odissey":"Odissey Pogosov","tt.odissey.role":"Narrative Designer","tt.odissey.desc":"Builds stories that stick in your head.",
-    "tt.roman":"Roman Buravlev","tt.roman.desc":"Models worlds, brings them to life.",
-    "tt.ksenia":"Ksenia Soboleva","tt.ksenia.desc":"Shapes, sculpts, adds soul.",
-    "tt.ivan":"Ivan Zanorin","tt.ivan.desc":"Details, props, perfects the vibe.",
-    "tt.3dartist":"3D Artist",
-    "tt.footer.head":"Different roles.","tt.footer.head2":"Same obsession.",
-    "tt.footer.mid":"We're a small team with a big love for games.<br>Coffee, questions, iteration — every day.",
-    "tt.footer.cta":"★ Let's make something unforgettable.",
-    "foot.back":"Back to top"
-  },
-  ru: {
-    "brand":"SnapJoy Games",
-    "nav.games":"Игры","nav.next":"Что дальше","nav.studio":"Студия","nav.contact":"Контакты",
-    "cta.wishlist":"В вишлист Steam","cta.see":"Посмотреть игры","cta.talk":"Написать нам",
-    "hero.eyebrow":"Инди-студия · с 2019",
-    "hero.h1.a":"Мы делаем игры,","hero.h1.b":"которые ","hero.h1.hit":"цепляют",
-    "hero.sub":"Маленькая студия с одним правилом — выпускать игры, ради которых сами засиживаемся ночами. Одна вышла, одна в работе, ещё искры впереди.",
-    "stat.revenue":"Общий доход","stat.shipped":"Выпущено","stat.wip":"В кузнице",
-    "marq":"SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ · SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ ·",
-    "sec.games.idx":"Выпущено","sec.games.h2":"Что мы сделали.","sec.games.meta":"Одна игра уже в Steam и продолжает приносить деньги. Отзывы положительные, фанаты громкие.",
-    "anvil.tag":"Вышла · Steam","anvil.desc":"Симулятор управления средневековой кузницей. Поддерживай печь, обучай подмастерьев, выживай в политике и меняй ход королевства по одной подкове за раз.",
-    "anvil.m1":"Доход","anvil.m2":"Платформа","anvil.m3":"Отзывы","anvil.cta1":"Страница в Steam","anvil.cta2":"Пресс-кит",
-    "sec.next.idx":"В разработке","sec.next.h2":"Derailed.","sec.next.meta":"Наш второй проект. Одиночный нарративный приключенческий проект об эпидемиях, империях и том, что выползает наружу, когда страна начинает трещать по швам.",
-    "derailed.badge":"В разработке","derailed.tag":"Следующий проект SnapJoy","derailed.sub":"Викторианство · Готика · Нарратив",
-    "derailed.p":"В островном государстве, совершенно случайно похожем на викторианскую стимпанк/альтернативную Британию, распространяется таинственное заболевание с плавающими паранормальными симптомами, которое приводит к летальному исходу у большинства пациентов. Государство снаряжает нас найти причину эпидемии и по возможности остановить её. Мы путешествуем по городам и сёлам, исцеляем пациентов, изгоняем демонов и общаемся с местными, чтобы установить причину вспышки.",
-    "derailed.m1":"Сеттинг","derailed.m1v":"Альт-викторианский стимпанк","derailed.m2":"Жанр","derailed.m2v":"Нарративное приключение / боди-хоррор","derailed.m3":"Платформа","derailed.m4":"Релиз",
-    "tl.1":"Концепт","tl.2":"Начало разработки","tl.3":"Первое демо","tl.4":"Игровое демо","tl.5":"Релиз",
-    "sec.studio.idx":"Команда","sec.studio.h2":"Маленькая кузница, громкий выхлоп.","sec.studio.meta":"Плотная команда, сильный вкус, ноль комитетов.",
-    "studio.p1":"SnapJoy Games — небольшая независимая студия. Мы делаем игры, в которых сами готовы потерять выходные — с сильной механикой, ясным голосом и щепоткой странности, чтобы они держались в голове ещё неделю.",
-    "studio.p2":"Наш первый тайтл, <em>Anvil Saga</em>, нашёл свою аудиторию в Steam и дал нам запас, чтобы бить дальше. Этот запас мы тратим на что-то куда более странное.",
-    "val.1.h":"Качество важнее объёма.","val.1.p":"Лучше вырежем систему, чем выпустим её сырой.",
-    "val.2.h":"Выпускай, потом полируй.","val.2.p":"Игры становятся лучше в руках игроков. Мы приходим к каждому патчу.",
-    "val.3.h":"Маленькие — по выбору.","val.3.p":"Ни комитетов, ни филлера. Решения принимаются в комнате из восьми человек.",
-    "val.4.h":"Странность — это фича.","val.4.p":"Моменты, которые скринят игроки, — это те, которых никто не просил.",
-    "sec.contact.idx":"Написать",
-    "contact.eyebrow":"Сейчас открыты к","contact.h3":"Прессе, издателям, хорошим идеям.",
-    "contact.p":"Читаем всё. Питчи, запросы на обзоры, резюме — один инбокс, быстрые ответы.",
-    "tt.idx":"03 — Команда","tt.h2a":"Команда","tt.h2b":"за","tt.em":"играми.",
-    "tt.tagline":"Девять ролей. Одна цель.<br>Мы строим миры, которые цепляют.",
-    "tt.leg.lead":"Лиды","tt.leg.crew":"Команда",
-    "tt.timur":"Тимур Шакиров","tt.timur.desc":"Ведёт корабль, задаёт курс, держит темп.",
-    "tt.bogdan":"Богдан Гончаров","tt.bogdan.role":"Project Manager /<br>Head Developer","tt.bogdan.desc":"Превращает планы в играбельное. Решает проблемы. Релизит.",
-    "tt.vladimir":"Владимир Дулов","tt.vladimir.role":"Art Head","tt.vladimir.desc":"Ведёт арт-видение. Делает красиво.",
-    "tt.lizaveta":"Лизавета Гончарова","tt.lizaveta.desc":"Рассказывает нашу историю. Находит наших людей.",
-    "tt.marlen":"Марлен Таригулиев","tt.marlen.role":"Разработчик","tt.marlen.desc":"Пишет код. Ломает код. Делает магию.",
-    "tt.odissey":"Одиссей Погосов","tt.odissey.role":"Нарративный дизайнер","tt.odissey.desc":"Сочиняет истории, которые остаются в голове.",
-    "tt.roman":"Роман Буравлев","tt.roman.desc":"Моделит миры, оживляет их.",
-    "tt.ksenia":"Ксения Соболева","tt.ksenia.desc":"Лепит, формирует, добавляет душу.",
-    "tt.ivan":"Иван Занорин","tt.ivan.desc":"Детали, пропсы, доводит вайб.",
-    "tt.3dartist":"3D-художник",
-    "tt.footer.head":"Разные роли.","tt.footer.head2":"Одна одержимость.",
-    "tt.footer.mid":"Маленькая команда с большой любовью к играм.<br>Кофе, вопросы, итерации — каждый день.",
-    "tt.footer.cta":"★ Давайте сделаем что-то незабываемое.",
-    "foot.back":"Наверх"
+const I18N_TABLE = `id	en	ru
+brand	SnapJoy Games	SnapJoy Games
+nav.games	Games	Игры
+nav.next	What's next	Что дальше
+nav.studio	Studio	Студия
+nav.contact	Contact	Контакты
+cta.wishlist	Wishlist on Steam	В вишлист Steam
+cta.see	See our games	Посмотреть игры
+cta.talk	Let's talk	Написать нам
+hero.eyebrow	Indie studio · Est. 2019	Инди-студия · с 2019
+hero.h1.a	We make games	Мы делаем игры,
+hero.h1.b	that 	которые 
+hero.h1.hit	hit	цепляют
+hero.sub	A tiny studio with a single rule — ship the kind of games we'd stay up late to play. One shipped, one under the hood, more sparks coming.	Маленькая студия с одним правилом — выпускать игры, ради которых сами засиживаемся ночами. Одна вышла, одна в работе, ещё искры впереди.
+stat.revenue	Lifetime revenue	Общий доход
+stat.shipped	Shipped titles	Выпущено
+stat.wip	In the forge	В кузнице
+marq	SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·	SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ · SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ ·
+sec.games.idx	Shipped	Выпущено
+sec.games.h2	What we've made.	Что мы сделали.
+sec.games.meta	One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.	Одна игра уже в Steam и продолжает приносить деньги. Отзывы положительные, фанаты громкие.
+anvil.tag	Launched · Steam	Вышла · Steam
+anvil.desc	A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.	Симулятор управления средневековой кузницей. Поддерживай печь, обучай подмастерьев, выживай в политике и меняй ход королевства по одной подкове за раз.
+anvil.m1	Revenue	Доход
+anvil.m2	Platform	Платформа
+anvil.m3	Reception	Отзывы
+anvil.cta1	View on Steam	Страница в Steam
+anvil.cta2	Press kit	Пресс-кит
+sec.next.idx	In development	В разработке
+sec.next.h2	Derailed.	Derailed.
+sec.next.meta	Our second project. A single-player narrative adventure about epidemics, empires, and the things that crawl out when a country starts to fracture.	Наш второй проект. Одиночный нарративный приключенческий проект об эпидемиях, империях и том, что выползает наружу, когда страна начинает трещать по швам.
+derailed.badge	In development	В разработке
+derailed.tag	Next from SnapJoy	Следующий проект SnapJoy
+derailed.sub	Victorian · Gothic · Narrative	Викторианство · Готика · Нарратив
+derailed.p	An island nation — coincidentally resembling a Victorian steampunk Britain — is gripped by a mysterious illness with shifting paranormal symptoms, lethal for most who catch it. The state dispatches us to trace the source of the outbreak and, if possible, stop it. We travel city to village: heal patients, banish demons, and talk with locals to uncover what's really behind the plague.	В островном государстве, совершенно случайно похожем на викторианскую стимпанк/альтернативную Британию, распространяется таинственное заболевание с плавающими паранормальными симптомами, которое приводит к летальному исходу у большинства пациентов. Государство снаряжает нас найти причину эпидемии и по возможности остановить её. Мы путешествуем по городам и сёлам, исцеляем пациентов, изгоняем демонов и общаемся с местными, чтобы установить причину вспышки.
+derailed.m1	Setting	Сеттинг
+derailed.m1v	Alt-Victorian steampunk	Альт-викторианский стимпанк
+derailed.m2	Genre	Жанр
+derailed.m2v	Narrative adventure/Body horror	Нарративное приключение / боди-хоррор
+derailed.m3	Platform	Платформа
+derailed.m4	Release	Релиз
+tl.1	Concept	Концепт
+tl.2	Production start	Начало разработки
+tl.3	First demo	Первое демо
+tl.4	Playable demo	Игровое демо
+tl.5	Release	Релиз
+sec.studio.idx	The team	Команда
+sec.studio.h2	A small forge, loud output.	Маленькая кузница, громкий выхлоп.
+sec.studio.meta	Tight team, strong taste, zero committees.	Плотная команда, сильный вкус, ноль комитетов.
+studio.p1	SnapJoy Games is a small independent studio. We build games we'd want to lose a weekend to — strong mechanics, a clear voice, and enough weirdness to stick in your head a week later.	SnapJoy Games — небольшая независимая студия. Мы делаем игры, в которых сами готовы потерять выходные — с сильной механикой, ясным голосом и щепоткой странности, чтобы они держались в голове ещё неделю.
+studio.p2	Our first shipped title, <em>Anvil Saga</em>, found its audience on Steam and earned us the runway to keep swinging. We're using that runway to make something stranger.	Наш первый тайтл, <em>Anvil Saga</em>, нашёл свою аудиторию в Steam и дал нам запас, чтобы бить дальше. Этот запас мы тратим на что-то куда более странное.
+val.1.h	Craft over scope.	Качество важнее объёма.
+val.1.p	We'd rather cut a system than ship it half-cooked.	Лучше вырежем систему, чем выпустим её сырой.
+val.2.h	Ship, then polish.	Выпускай, потом полируй.
+val.2.p	Games get better in players' hands. We show up every patch.	Игры становятся лучше в руках игроков. Мы приходим к каждому патчу.
+val.3.h	Small by choice.	Маленькие — по выбору.
+val.3.p	No committees, no filler. Decisions happen in a room of eight.	Ни комитетов, ни филлера. Решения принимаются в комнате из восьми человек.
+val.4.h	Weird is a feature.	Странность — это фича.
+val.4.p	The moments people screenshot are the ones nobody asked us for.	Моменты, которые скринят игроки, — это те, которых никто не просил.
+sec.contact.idx	Say hi	Написать
+contact.eyebrow	Currently open to	Сейчас открыты к
+contact.h3	Press, publishers, good ideas.	Прессе, издателям, хорошим идеям.
+contact.p	We read everything. Pitches, coverage requests, job applications — one inbox, fast replies.	Читаем всё. Питчи, запросы на обзоры, резюме — один инбокс, быстрые ответы.
+tt.idx	03 — The Team	03 — Команда
+tt.h2a	The crew	Команда
+tt.h2b	behind the	за
+tt.em	games.	играми.
+tt.tagline	Nine roles. One mission.<br>We build worlds that hit.	Девять ролей. Одна цель.<br>Мы строим миры, которые цепляют.
+tt.leg.lead	Leads	Лиды
+tt.leg.crew	The crew	Команда
+tt.timur	Timur Shakirov	Тимур Шакиров
+tt.timur.desc	Steers the ship, sets the course, keeps us moving.	Ведёт корабль, задаёт курс, держит темп.
+tt.bogdan	Bogdan Goncharov	Богдан Гончаров
+tt.bogdan.role	Project Manager /<br>Head Developer	Project Manager /<br>Head Developer
+tt.bogdan.desc	Turns plans into playable things. Solves problems. Ships.	Превращает планы в играбельное. Решает проблемы. Релизит.
+tt.vladimir	Vladimir Dulov	Владимир Дулов
+tt.vladimir.role	Art Head	Art Head
+tt.vladimir.desc	Leads the art vision. Makes it beautiful.	Ведёт арт-видение. Делает красиво.
+tt.lizaveta	Lizaveta Goncharova	Лизавета Гончарова
+tt.lizaveta.desc	Shares our story. Finds our people.	Рассказывает нашу историю. Находит наших людей.
+tt.marlen	Marlen Tariguliev	Марлен Таригулиев
+tt.marlen.role	Developer	Разработчик
+tt.marlen.desc	Writes code. Breaks code. Makes magic.	Пишет код. Ломает код. Делает магию.
+tt.odissey	Odissey Pogosov	Одиссей Погосов
+tt.odissey.role	Narrative Designer	Нарративный дизайнер
+tt.odissey.desc	Builds stories that stick in your head.	Сочиняет истории, которые остаются в голове.
+tt.roman	Roman Buravlev	Роман Буравлев
+tt.roman.desc	Models worlds, brings them to life.	Моделит миры, оживляет их.
+tt.ksenia	Ksenia Soboleva	Ксения Соболева
+tt.ksenia.desc	Shapes, sculpts, adds soul.	Лепит, формирует, добавляет душу.
+tt.ivan	Ivan Zanorin	Иван Занорин
+tt.ivan.desc	Details, props, perfects the vibe.	Детали, пропсы, доводит вайб.
+tt.3dartist	3D Artist	3D-художник
+tt.footer.head	Different roles.	Разные роли.
+tt.footer.head2	Same obsession.	Одна одержимость.
+tt.footer.mid	We're a small team with a big love for games.<br>Coffee, questions, iteration — every day.	Маленькая команда с большой любовью к играм.<br>Кофе, вопросы, итерации — каждый день.
+tt.footer.cta	★ Let's make something unforgettable.	★ Давайте сделаем что-то незабываемое.
+foot.back	Back to top	Наверх`;
+
+const I18N = { en: {}, ru: {} };
+I18N_TABLE.trim().split('\n').slice(1).forEach((line)=>{
+  const [id, en, ru] = line.split('\t');
+  if(!id) return;
+  I18N.en[id] = en ?? '';
+  I18N.ru[id] = ru ?? '';
+});
+async function loadI18NFromXlsx(url){
+  if(typeof XLSX === 'undefined') return false;
+  try{
+    const response = await fetch(url, { cache: 'no-store' });
+    if(!response.ok) return false;
+    const buffer = await response.arrayBuffer();
+    const workbook = XLSX.read(buffer, { type:'array' });
+    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    if(!firstSheet) return false;
+    const rows = XLSX.utils.sheet_to_json(firstSheet, { header:1, defval:'' });
+    if(rows.length < 2) return false;
+    const [headerId, headerEn, headerRu] = rows[0].map(v => String(v).trim().toLowerCase());
+    if(headerId !== 'id' || headerEn !== 'en' || headerRu !== 'ru') return false;
+    rows.slice(1).forEach((row)=>{
+      const id = String(row[0] ?? '').trim();
+      if(!id) return;
+      I18N.en[id] = String(row[1] ?? '');
+      I18N.ru[id] = String(row[2] ?? '');
+    });
+    return true;
+  }catch(e){
+    return false;
   }
-};
+}
 function setLang(lang){
   document.documentElement.lang = lang;
   const dict = I18N[lang];
@@ -1066,6 +1094,14 @@ function setLang(lang){
 document.querySelectorAll('.lang button').forEach(b=>{
   b.addEventListener('click', ()=>setLang(b.dataset.lang));
 });
+async function initI18N(){
+  const activeBtn = document.querySelector('.lang button.on');
+  const startLang = activeBtn ? activeBtn.dataset.lang : 'en';
+  setLang(startLang);
+  const loaded = await loadI18NFromXlsx('./translations.xlsx');
+  if(loaded) setLang(startLang);
+}
+initI18N();
 </script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
