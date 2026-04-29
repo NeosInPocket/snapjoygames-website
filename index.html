@@ -474,9 +474,9 @@
 
     <!-- Section header texts -->
     <div class="ab-outer-texts">
-      <div class="ab-label">01 &nbsp;—&nbsp; SHIPPED</div>
-      <div class="ab-headline">What <span class="ab-headline-mid">we've</span> made<span class="ab-headline-dot">.</span></div>
-      <div class="ab-section-desc">One title out in the wild, still earning its keep.<br>Reviews mostly positive, players mostly loud.</div>
+      <div class="ab-label">01 &nbsp;—&nbsp; <span data-i18n="sec.games.idx">Shipped</span></div>
+      <div class="ab-headline"><span data-i18n="anvil.h2.a">What</span> <span class="ab-headline-mid" data-i18n="anvil.h2.b">we've</span> <span data-i18n="anvil.h2.c">made</span><span class="ab-headline-dot">.</span></div>
+      <div class="ab-section-desc" data-i18n="sec.games.meta">One title out in the wild, still earning its keep.<br>Reviews mostly positive, players mostly loud.</div>
     </div>
 
     <!-- Big game screenshot -->
@@ -497,31 +497,31 @@
 
     <!-- Right panel -->
     <div class="ab-game-name"></div>
-    <div class="ab-game-name-text" data-node-id="16:29">Anvil&nbsp;&nbsp;Saga</div>
-    <p class="ab-game-desc">A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.</p>
+    <div class="ab-game-name-text" data-node-id="16:29" data-i18n="anvil.name">Anvil Saga</div>
+    <p class="ab-game-desc" data-i18n="anvil.desc">A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.</p>
 
     <!-- Metrics -->
     <div class="ab-divider-h"></div>
     <div class="ab-metrics">
       <div class="ab-metric">
-        <div class="ab-metric-k">REVENUE</div>
+        <div class="ab-metric-k" data-i18n="anvil.m1">Revenue</div>
         <div class="ab-metric-v">$1.2M</div>
       </div>
       <div class="ab-vdivider"></div>
       <div class="ab-metric">
-        <div class="ab-metric-k">PLATFORM</div>
+        <div class="ab-metric-k" data-i18n="anvil.m2">Platform</div>
         <div class="ab-metric-v ab-plain">PC</div>
       </div>
       <div class="ab-vdivider"></div>
       <div class="ab-metric">
-        <div class="ab-metric-k">RECEPTION</div>
+        <div class="ab-metric-k" data-i18n="anvil.m3">Reception</div>
         <div class="ab-metric-v">84%</div>
       </div>
     </div>
 
     <!-- Steam button -->
     <a class="ab-steam-btn" href="https://store.steampowered.com/app/1587540/Anvil_Saga/" target="_blank" rel="noopener" data-hover>
-      <span>View on Steam</span>
+      <span data-i18n="anvil.cta1">View on Steam</span>
     </a>
     <img class="ab-steam-logo" src="assets/fig/steam-logo.png" alt="" />
 
@@ -973,6 +973,10 @@ sec.games.idx	Shipped	Выпущено
 sec.games.h2	What we've made.	Что мы сделали.
 sec.games.meta	One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.	Одна игра уже в Steam и продолжает приносить деньги. Отзывы положительные, фанаты громкие.
 anvil.tag	Launched · Steam	Вышла · Steam
+anvil.h2.a	What	Что
+anvil.h2.b	we've	мы
+anvil.h2.c	made	сделали
+anvil.name	Anvil Saga	Anvil Saga
 anvil.desc	A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.	Симулятор управления средневековой кузницей. Поддерживай печь, обучай подмастерьев, выживай в политике и меняй ход королевства по одной подкове за раз.
 anvil.m1	Revenue	Доход
 anvil.m2	Platform	Платформа
@@ -1090,6 +1094,14 @@ function setLang(lang){
   });
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang===lang));
   try { window.dispatchEvent(new Event('snapjoy-lang')); } catch(e) {}
+  if(typeof scaleTT === 'function'){
+    requestAnimationFrame(()=>{
+      scaleTT();
+      requestAnimationFrame(scaleTT);
+    });
+    setTimeout(scaleTT, 120);
+    setTimeout(scaleTT, 320);
+  }
 }
 document.querySelectorAll('.lang button').forEach(b=>{
   b.addEventListener('click', ()=>setLang(b.dataset.lang));
