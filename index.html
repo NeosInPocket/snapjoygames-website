@@ -267,6 +267,8 @@
   .tt-person{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
   .tt-avatar{width:86px;height:86px;border-radius:50%;overflow:hidden;border:2px solid #EAB93F;box-shadow:0 0 0 3px rgba(234,185,63,.14),0 0 18px rgba(234,185,63,.18)}
   .tt-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .tt-avatar--vacant{display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,rgba(234,185,63,.22),rgba(255,255,255,.02) 65%)}
+  .tt-avatar-q{font-size:44px;line-height:1;color:#EAB93F;font-weight:700;text-shadow:0 0 12px rgba(234,185,63,.35)}
   .tt-role{display:inline-block;padding:4px 9px;border-radius:999px;border:1px solid rgba(234,185,63,.32);background:rgba(234,185,63,.15);font-family:"JetBrains Mono",monospace;font-size:9px;line-height:1.4;letter-spacing:.1em;text-transform:uppercase;color:#EAB93F;margin-bottom:4px}
   .tt-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.2;margin-bottom:3px}
   .tt-desc{font-size:12px;line-height:1.35;color:rgba(255,255,255,.58);max-width:190px}
@@ -628,11 +630,11 @@
           <div class="tt-dept-sub">Imagines it first. Makes it real.</div>
           <div class="tt-people four">
             <div class="tt-person">
-              <div class="tt-avatar"><img src="assets/team/vladimir.jpg" alt="Vladimir Dulov" /></div>
+              <div class="tt-avatar tt-avatar--vacant" aria-label="Open art director position"><span class="tt-avatar-q">?</span></div>
               <div>
-                <div class="tt-role" data-i18n="tt.vladimir.role">Art Head</div>
-                <div class="tt-name" data-i18n="tt.vladimir">Vladimir Dulov</div>
-                <div class="tt-desc" data-i18n="tt.vladimir.desc">Leads the art vision. Makes it beautiful.</div>
+                <div class="tt-role" data-i18n="tt.vladimir.role">Art Director (open)</div>
+                <div class="tt-name" data-i18n="tt.vladimir">Position open</div>
+                <div class="tt-desc" data-i18n="tt.vladimir.desc">The seat is not occupied right now, but someone will join this role soon.</div>
               </div>
             </div>
             <div class="tt-person">
@@ -951,116 +953,7 @@ const revIO = new IntersectionObserver(entries=>{
 revIO.observe(rev);
 
 /* ============ i18n ============ */
-const I18N_TABLE = `id	en	ru
-brand	SnapJoy Games	SnapJoy Games
-nav.games	Games	Игры
-nav.next	What's next	Что дальше
-nav.studio	Studio	Студия
-nav.contact	Contact	Контакты
-cta.wishlist	Wishlist on Steam	В вишлист Steam
-cta.see	See our games	Посмотреть игры
-cta.talk	Let's talk	Написать нам
-hero.eyebrow	Indie studio · Est. 2019	Инди-студия · с 2019
-hero.h1.a	We make games	Мы делаем игры,
-hero.h1.b	that 	которые 
-hero.h1.hit	hit	цепляют
-hero.sub	A tiny studio with a single rule — ship the kind of games we'd stay up late to play. One shipped, one under the hood, more sparks coming.	Маленькая студия с одним правилом — выпускать игры, ради которых сами засиживаемся ночами. Одна вышла, одна в работе, ещё искры впереди.
-stat.revenue	Lifetime revenue	Общий доход
-stat.shipped	Shipped titles	Выпущено
-stat.wip	In the forge	В кузнице
-marq	SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS · SHIP IT · CRAFT OVER SCOPE · PLAYERS FIRST · MADE WITH CAFFEINE · NO TUTORIAL MODE · SMALL TEAM, BIG SWINGS ·	SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ · SHIP IT · КРАФТ ВАЖНЕЕ ОБЪЁМА · ИГРОКИ В ПРИОРИТЕТЕ · СДЕЛАНО НА КОФЕИНЕ · БЕЗ ТУТОРИАЛОВ · МАЛЕНЬКАЯ КОМАНДА, БОЛЬШИЕ СТАВКИ ·
-sec.games.idx	Shipped	Выпущено
-sec.games.h2	What we've made.	Что мы сделали.
-sec.games.meta	One title out in the wild, still earning its keep. Reviews mostly positive, players mostly loud.	Одна игра уже в Steam и продолжает приносить деньги. Отзывы положительные, фанаты громкие.
-anvil.tag	Launched · Steam	Вышла · Steam
-anvil.h2.a	What	Что
-anvil.h2.b	we've	мы
-anvil.h2.c	made	сделали
-anvil.name	Anvil Saga	Anvil Saga
-anvil.desc	A medieval blacksmith-shop management sim. Run the forge, train your apprentices, survive the politics, and bend the course of a kingdom one horseshoe at a time.	Симулятор управления средневековой кузницей. Поддерживай печь, обучай подмастерьев, выживай в политике и меняй ход королевства по одной подкове за раз.
-anvil.m1	Revenue	Доход
-anvil.m2	Platform	Платформа
-anvil.m3	Reception	Отзывы
-anvil.cta1	View on Steam	Страница в Steam
-anvil.cta2	Press kit	Пресс-кит
-sec.next.idx	In development	В разработке
-sec.next.h2	Derailed.	Derailed.
-sec.next.meta	Our second project. A single-player narrative adventure about epidemics, empires, and the things that crawl out when a country starts to fracture.	Наш второй проект. Одиночный нарративный приключенческий проект об эпидемиях, империях и том, что выползает наружу, когда страна начинает трещать по швам.
-derailed.badge	In development	В разработке
-derailed.tag	Next from SnapJoy	Следующий проект SnapJoy
-derailed.sub	Victorian · Gothic · Narrative	Викторианство · Готика · Нарратив
-derailed.p	An island nation — coincidentally resembling a Victorian steampunk Britain — is gripped by a mysterious illness with shifting paranormal symptoms, lethal for most who catch it. The state dispatches us to trace the source of the outbreak and, if possible, stop it. We travel city to village: heal patients, banish demons, and talk with locals to uncover what's really behind the plague.	В островном государстве, совершенно случайно похожем на викторианскую стимпанк/альтернативную Британию, распространяется таинственное заболевание с плавающими паранормальными симптомами, которое приводит к летальному исходу у большинства пациентов. Государство снаряжает нас найти причину эпидемии и по возможности остановить её. Мы путешествуем по городам и сёлам, исцеляем пациентов, изгоняем демонов и общаемся с местными, чтобы установить причину вспышки.
-derailed.m1	Setting	Сеттинг
-derailed.m1v	Alt-Victorian steampunk	Альт-викторианский стимпанк
-derailed.m2	Genre	Жанр
-derailed.m2v	Narrative adventure/Body horror	Нарративное приключение / боди-хоррор
-derailed.m3	Platform	Платформа
-derailed.m4	Release	Релиз
-tl.1	Concept	Концепт
-tl.2	Production start	Начало разработки
-tl.3	First demo	Первое демо
-tl.4	Playable demo	Игровое демо
-tl.5	Release	Релиз
-sec.studio.idx	The team	Команда
-sec.studio.h2	A small forge, loud output.	Маленькая кузница, громкий выхлоп.
-sec.studio.meta	Tight team, strong taste, zero committees.	Плотная команда, сильный вкус, ноль комитетов.
-studio.p1	SnapJoy Games is a small independent studio. We build games we'd want to lose a weekend to — strong mechanics, a clear voice, and enough weirdness to stick in your head a week later.	SnapJoy Games — небольшая независимая студия. Мы делаем игры, в которых сами готовы потерять выходные — с сильной механикой, ясным голосом и щепоткой странности, чтобы они держались в голове ещё неделю.
-studio.p2	Our first shipped title, <em>Anvil Saga</em>, found its audience on Steam and earned us the runway to keep swinging. We're using that runway to make something stranger.	Наш первый тайтл, <em>Anvil Saga</em>, нашёл свою аудиторию в Steam и дал нам запас, чтобы бить дальше. Этот запас мы тратим на что-то куда более странное.
-val.1.h	Craft over scope.	Качество важнее объёма.
-val.1.p	We'd rather cut a system than ship it half-cooked.	Лучше вырежем систему, чем выпустим её сырой.
-val.2.h	Ship, then polish.	Выпускай, потом полируй.
-val.2.p	Games get better in players' hands. We show up every patch.	Игры становятся лучше в руках игроков. Мы приходим к каждому патчу.
-val.3.h	Small by choice.	Маленькие — по выбору.
-val.3.p	No committees, no filler. Decisions happen in a room of eight.	Ни комитетов, ни филлера. Решения принимаются в комнате из восьми человек.
-val.4.h	Weird is a feature.	Странность — это фича.
-val.4.p	The moments people screenshot are the ones nobody asked us for.	Моменты, которые скринят игроки, — это те, которых никто не просил.
-sec.contact.idx	Say hi	Написать
-contact.eyebrow	Currently open to	Сейчас открыты к
-contact.h3	Press, publishers, good ideas.	Прессе, издателям, хорошим идеям.
-contact.p	We read everything. Pitches, coverage requests, job applications — one inbox, fast replies.	Читаем всё. Питчи, запросы на обзоры, резюме — один инбокс, быстрые ответы.
-tt.idx	03 — The Team	03 — Команда
-tt.h2a	The crew	Команда
-tt.h2b	behind the	за
-tt.em	games.	играми.
-tt.tagline	Nine roles. One mission.<br>We build worlds that hit.	Девять ролей. Одна цель.<br>Мы строим миры, которые цепляют.
-tt.leg.lead	Leads	Лиды
-tt.leg.crew	The crew	Команда
-tt.timur	Timur Shakirov	Тимур Шакиров
-tt.timur.desc	Steers the ship, sets the course, keeps us moving.	Ведёт корабль, задаёт курс, держит темп.
-tt.bogdan	Bogdan Goncharov	Богдан Гончаров
-tt.bogdan.role	Project Manager /<br>Head Developer	Project Manager /<br>Head Developer
-tt.bogdan.desc	Turns plans into playable things. Solves problems. Ships.	Превращает планы в играбельное. Решает проблемы. Релизит.
-tt.vladimir	Vladimir Dulov	Владимир Дулов
-tt.vladimir.role	Art Head	Art Head
-tt.vladimir.desc	Leads the art vision. Makes it beautiful.	Ведёт арт-видение. Делает красиво.
-tt.lizaveta	Lizaveta Goncharova	Лизавета Гончарова
-tt.lizaveta.desc	Shares our story. Finds our people.	Рассказывает нашу историю. Находит наших людей.
-tt.marlen	Marlen Tariguliev	Марлен Таригулиев
-tt.marlen.role	Developer	Разработчик
-tt.marlen.desc	Writes code. Breaks code. Makes magic.	Пишет код. Ломает код. Делает магию.
-tt.odissey	Odissey Pogosov	Одиссей Погосов
-tt.odissey.role	Narrative Designer	Нарративный дизайнер
-tt.odissey.desc	Builds stories that stick in your head.	Сочиняет истории, которые остаются в голове.
-tt.roman	Roman Buravlev	Роман Буравлев
-tt.roman.desc	Models worlds, brings them to life.	Моделит миры, оживляет их.
-tt.ksenia	Ksenia Soboleva	Ксения Соболева
-tt.ksenia.desc	Shapes, sculpts, adds soul.	Лепит, формирует, добавляет душу.
-tt.ivan	Ivan Zanorin	Иван Занорин
-tt.ivan.desc	Details, props, perfects the vibe.	Детали, пропсы, доводит вайб.
-tt.3dartist	3D Artist	3D-художник
-tt.footer.head	Different roles.	Разные роли.
-tt.footer.head2	Same obsession.	Одна одержимость.
-tt.footer.mid	We're a small team with a big love for games.<br>Coffee, questions, iteration — every day.	Маленькая команда с большой любовью к играм.<br>Кофе, вопросы, итерации — каждый день.
-tt.footer.cta	★ Let's make something unforgettable.	★ Давайте сделаем что-то незабываемое.
-foot.back	Back to top	Наверх`;
-
 const I18N = { en: {}, ru: {} };
-I18N_TABLE.trim().split('\n').slice(1).forEach((line)=>{
-  const [id, en, ru] = line.split('\t');
-  if(!id) return;
-  I18N.en[id] = en ?? '';
-  I18N.ru[id] = ru ?? '';
-});
 async function loadI18NFromXlsx(url){
   if(typeof XLSX === 'undefined') return false;
   try{
