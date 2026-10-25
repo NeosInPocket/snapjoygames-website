@@ -169,6 +169,63 @@
     .ab-section-desc{left:600px;top:10px;width:300px;font-size:16px}
   }
 
+  /* ====== Waterline (game-styled: PS1 HUD, rain, rising water) ====== */
+  .wl-section{--wl-hud:#E2D3A6;--wl-dim:#857D6B;--wl-red:#C0202A;position:relative;overflow:hidden;background:#06080B;color:var(--wl-hud);padding:110px 48px 170px;isolation:isolate}
+  .wl-bg{position:absolute;inset:0;z-index:-3;background:linear-gradient(180deg,#06080B 0%,rgba(6,8,11,.78) 25%,rgba(6,8,11,.8) 70%,#06080B 100%),url(assets/waterline/shot-6.jpg) center 30%/cover no-repeat;filter:saturate(.5)}
+  .wl-rain{position:absolute;inset:0;width:100%;height:100%;z-index:-2;image-rendering:pixelated;pointer-events:none;opacity:.7}
+  .wl-scan{position:absolute;inset:0;z-index:5;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+  .wl-inner{position:relative;z-index:3;max-width:1440px;margin:0 auto}
+  .wl-head{margin-bottom:56px}
+  .wl-label{font-family:"Pixelify Sans",monospace;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--wl-dim);margin-bottom:10px}
+  .wl-title{margin:0;font-family:"Pixelify Sans",monospace;font-weight:500;font-size:clamp(64px,9.5vw,140px);line-height:.95;letter-spacing:.03em;text-transform:uppercase;color:var(--wl-hud);text-shadow:3px 0 rgba(192,32,42,.35),-3px 0 rgba(70,130,150,.3)}
+  .wl-title-dot{color:var(--wl-red)}
+
+  .wl-main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:64px;align-items:center}
+  .wl-screen{position:relative;aspect-ratio:16/9;background:#000;border:2px solid #3A3526;box-shadow:0 40px 80px -30px rgba(0,0,0,.9);overflow:hidden;cursor:pointer}
+  .wl-screen img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .12s steps(2)}
+  .wl-screen.is-changing img{opacity:.15}
+  .wl-screen::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.55) 100%),repeating-linear-gradient(180deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
+  .wl-dashes{display:flex;gap:8px;margin-top:16px}
+  .wl-dashes button{width:28px;height:6px;padding:0;border:0;background:var(--wl-hud);opacity:.2;cursor:pointer;transition:opacity .2s}
+  .wl-dashes button:hover{opacity:.5}
+  .wl-dashes button.on{opacity:1}
+
+  .wl-text{display:flex;flex-direction:column;align-items:flex-start}
+  .wl-type{margin:0 0 20px;min-height:2.6em;font-family:"Pixelify Sans",monospace;font-size:clamp(22px,2.1vw,30px);line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--wl-hud)}
+  .wl-type::after{content:"_";animation:wlBlink 1s steps(1) infinite;margin-left:2px}
+  @keyframes wlBlink{50%{opacity:0}}
+  .wl-desc{margin:0 0 36px;max-width:420px;font-size:18px;line-height:1.55;color:rgba(226,211,166,.7)}
+  .wl-cta{display:inline-flex;align-items:center;gap:16px;padding:10px 26px 10px 10px;background:var(--wl-hud);color:#0B0C0E;text-decoration:none;white-space:nowrap;font-family:"Pixelify Sans",monospace;font-size:24px;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 0 2px var(--wl-hud),0 18px 40px -16px rgba(226,211,166,.45);transition:transform .15s,box-shadow .2s}
+  .wl-key{display:grid;place-items:center;width:40px;height:40px;background:var(--wl-red);color:#F4E6C0;font-size:22px}
+  .wl-cta:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--wl-hud),0 24px 48px -14px rgba(226,211,166,.6)}
+  .wl-facts{margin-top:18px;font-family:"Pixelify Sans",monospace;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--wl-dim)}
+
+  .wl-water{position:absolute;left:0;right:0;bottom:0;height:130px;z-index:4;pointer-events:none;background:linear-gradient(180deg,rgba(18,34,40,.55),rgba(9,18,22,.92) 45%,#070D10);animation:wlRise 14s ease-in-out infinite alternate}
+  .wl-wave{position:absolute;left:0;top:-14px;width:200%;height:16px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='16' viewBox='0 0 120 16'><path d='M0 8 Q15 0 30 8 T60 8 T90 8 T120 8 V16 H0Z' fill='rgba(18,34,40,0.55)'/><path d='M0 8 Q15 0 30 8 T60 8 T90 8 T120 8' fill='none' stroke='rgba(150,190,200,0.35)' stroke-width='1.5'/></svg>") repeat-x;background-size:120px 16px;animation:wlWave 6s linear infinite}
+  .wl-wave--back{top:-20px;opacity:.45;animation-duration:10s;animation-direction:reverse}
+  @keyframes wlWave{to{transform:translateX(-120px)}}
+  @keyframes wlRise{from{height:110px}to{height:150px}}
+
+  @media (max-width:1100px){
+    .wl-main{gap:40px}
+    .wl-cta{font-size:20px}
+  }
+  @media (max-width:980px){
+    .wl-section{padding:90px 20px 150px}
+    .wl-head{margin-bottom:36px}
+    .wl-title{font-size:clamp(40px,12.5vw,96px);letter-spacing:.02em}
+    .wl-main{grid-template-columns:1fr;gap:32px}
+    .wl-dashes button{width:20px;height:5px}
+    .wl-type{font-size:20px;margin-bottom:14px}
+    .wl-desc{font-size:16px;margin-bottom:28px}
+    .wl-cta{font-size:19px;padding-right:20px}
+    .wl-water{height:100px;animation-name:wlRiseSm}
+  }
+  @keyframes wlRiseSm{from{height:90px}to{height:120px}}
+  @media (prefers-reduced-motion:reduce){
+    .wl-wave,.wl-water,.wl-type::after{animation:none}
+  }
+
   /* ====== Derailed (next) ====== */
   #next{background:var(--bg)}
   .derailed{position:relative;border-radius:28px;overflow:hidden;background:var(--card-surface,var(--ink));color:var(--card-fg,var(--bg));display:grid;grid-template-columns:1.1fr 1fr;gap:0;min-height:640px;box-shadow:0 40px 60px -40px var(--shadow-card,rgba(30,34,48,.35))}
@@ -389,6 +446,7 @@
     </a>
     <div class="links">
       <a href="#games" data-hover data-i18n="nav.games">Games</a>
+      <a href="#waterline" data-hover>Waterline</a>
       <a href="#next" data-hover data-i18n="nav.next">What's next</a>
       <a href="#studio" data-hover data-i18n="nav.studio">Studio</a>
       <a href="#contact" data-hover data-i18n="nav.contact">Contact</a>
@@ -420,7 +478,7 @@
         <span data-i18n="hero.h1.b">that </span><span class="hit" data-i18n="hero.h1.hit">hit</span>
         <svg class="star" width="64" height="64" viewBox="0 0 24 24"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
       </h1>
-      <p class="sub" data-i18n="hero.sub">A tiny studio with a single rule — ship the kind of games we'd stay up late to play. One shipped, one under the hood, more sparks coming.</p>
+      <p class="sub" data-i18n="hero.sub">A tiny studio with a single rule — ship the kind of games we'd stay up late to play. Two shipped, one under the hood, more sparks coming.</p>
       <div class="cta-row">
         <a href="#games" class="btn primary" data-hover>
           <span data-i18n="cta.see">See our games</span>
@@ -430,7 +488,7 @@
       </div>
       <div class="stats">
         <div class="stat"><div class="k" data-i18n="stat.revenue">Lifetime revenue</div><div class="v mono" id="revCounter">$1.2M</div></div>
-        <div class="stat"><div class="k" data-i18n="stat.shipped">Shipped titles</div><div class="v mono">01</div></div>
+        <div class="stat"><div class="k" data-i18n="stat.shipped">Shipped titles</div><div class="v mono">02</div></div>
         <div class="stat"><div class="k" data-i18n="stat.wip">In the forge</div><div class="v mono">01</div></div>
       </div>
     </div>
@@ -535,12 +593,47 @@
   </div>
 </section>
 
+<!-- WATERLINE -->
+<section id="waterline" class="wl-section">
+  <div class="wl-bg" aria-hidden="true"></div>
+  <canvas class="wl-rain" id="wlRain" aria-hidden="true"></canvas>
+  <div class="wl-scan" aria-hidden="true"></div>
+
+  <div class="wl-inner">
+    <div class="wl-head reveal">
+      <div class="wl-label">&gt; 02 &nbsp;—&nbsp; <span data-i18n="sec.wl.idx">Out now</span></div>
+      <h2 class="wl-title">Waterline<span class="wl-title-dot">.</span></h2>
+    </div>
+
+    <div class="wl-main reveal">
+      <div class="wl-gallery">
+        <div class="wl-screen" id="wlScreen" data-shots="assets/waterline/shot-1.jpg,assets/waterline/shot-3.jpg,assets/waterline/shot-4.jpg,assets/waterline/shot-5.jpg,assets/waterline/shot-2.jpg,assets/waterline/shot-6.jpg">
+          <img id="wlShot" src="assets/waterline/shot-1.jpg" alt="Waterline screenshot" />
+        </div>
+        <div class="wl-dashes" id="wlDashes"></div>
+      </div>
+
+      <div class="wl-text">
+        <p class="wl-type" id="wlType" data-i18n="wl.type">&gt; It started raining at 6:40 PM. It never stopped.</p>
+        <p class="wl-desc" data-i18n="wl.p">The water rises every night. And every night someone knocks. Decide who you let in.</p>
+        <a class="wl-cta" href="https://snapjoygames.itch.io/waterline" target="_blank" rel="noopener" data-hover>
+          <span class="wl-key">E</span>
+          <span data-i18n="wl.cta">Get it on itch.io</span>
+        </a>
+        <div class="wl-facts" data-i18n="wl.facts">7 nights · 7 endings · Free demo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-water" aria-hidden="true"><div class="wl-wave"></div><div class="wl-wave wl-wave--back"></div></div>
+</section>
+
 <!-- NEXT / HORROR -->
 <section class="slab" id="next" style="padding-top:40px">
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <div class="idx">02 — <span data-i18n="sec.next.idx">In development</span></div>
+        <div class="idx">03 — <span data-i18n="sec.next.idx">In development</span></div>
         <h2 data-i18n="sec.next.h2">Derailed.</h2>
       </div>
       <div class="meta" data-i18n="sec.next.meta">Our second project. A single-player narrative adventure about epidemics, empires, and the things that crawl out when a country starts to fracture.</div>
@@ -591,9 +684,9 @@
 
     <!-- Section header (top-left) -->
     <div class="tt-header">
-      <div class="tt-idx" data-i18n="tt.idx">03 — The Team</div>
+      <div class="tt-idx" data-i18n="tt.idx">04 — The Team</div>
       <h2 class="tt-h2"><span data-i18n="tt.h2a">The crew</span><br><span data-i18n="tt.h2b">behind the</span><br><em class="tt-em" data-i18n="tt.em">games.</em></h2>
-      <p class="tt-tagline" data-i18n="tt.tagline">Ten roles. One mission.<br>We build worlds that hit.</p>
+      <p class="tt-tagline" data-i18n="tt.tagline">Seven roles. One mission.<br>We build worlds that hit.</p>
     </div>
 
     <!-- Sparkle decorations -->
@@ -629,7 +722,7 @@
         <article class="tt-dept art">
           <div class="tt-dept-title">Art Department</div>
           <div class="tt-dept-sub">Imagines it first. Makes it real.</div>
-          <div class="tt-people four">
+          <div class="tt-people three">
             <div class="tt-person">
               <div class="tt-avatar"><img src="assets/team/dmitriy-art-director.jpg" alt="Dmitry Udovenko" /></div>
               <div>
@@ -654,14 +747,6 @@
                 <div class="tt-desc" data-i18n="tt.ksenia.desc">Shapes, sculpts, adds soul.</div>
               </div>
             </div>
-            <div class="tt-person">
-              <div class="tt-avatar"><img src="assets/team/roman.jpg" alt="Roman Buravlev" /></div>
-              <div>
-                <div class="tt-role" data-i18n="tt.3dartist">3D Artist</div>
-                <div class="tt-name" data-i18n="tt.roman">Roman Buravlev</div>
-                <div class="tt-desc" data-i18n="tt.roman.desc">Models worlds, brings them to life.</div>
-              </div>
-            </div>
           </div>
         </article>
       </div>
@@ -669,29 +754,13 @@
         <article class="tt-dept dev">
           <div class="tt-dept-title">Development Department</div>
           <div class="tt-dept-sub">Turns ideas into playable things. Solves problems. Ships.</div>
-          <div class="tt-people four">
+          <div class="tt-people two">
             <div class="tt-person">
               <div class="tt-avatar"><img src="assets/team/bogdan.jpg" alt="Bogdan Goncharov" /></div>
               <div>
                 <div class="tt-role" data-i18n="tt.bogdan.role">Project Manager /<br>Head Developer</div>
                 <div class="tt-name" data-i18n="tt.bogdan">Bogdan Goncharov</div>
                 <div class="tt-desc" data-i18n="tt.bogdan.desc">Turns plans into playable things. Solves problems. Ships.</div>
-              </div>
-            </div>
-            <div class="tt-person">
-              <div class="tt-avatar"><img src="assets/team/marlen.jpg" alt="Marlen Tariguliev" /></div>
-              <div>
-                <div class="tt-role" data-i18n="tt.marlen.role">Developer</div>
-                <div class="tt-name" data-i18n="tt.marlen">Marlen Tariguliev</div>
-                <div class="tt-desc" data-i18n="tt.marlen.desc">Writes code. Breaks code. Makes magic.</div>
-              </div>
-            </div>
-            <div class="tt-person">
-              <div class="tt-avatar"><img src="assets/team/artemii.jpg" alt="Artemii Azarenkov" /></div>
-              <div>
-                <div class="tt-role" data-i18n="tt.artemiy.role">Developer</div>
-                <div class="tt-name" data-i18n="tt.artemiy">Artemii Azarenkov</div>
-                <div class="tt-desc" data-i18n="tt.artemiy.desc">Writes code. Breaks code. Makes magic.</div>
               </div>
             </div>
             <div class="tt-person">
@@ -728,7 +797,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <div class="idx">04 — <span data-i18n="sec.contact.idx">Say hi</span></div>
+        <div class="idx">05 — <span data-i18n="sec.contact.idx">Say hi</span></div>
       </div>
     </div>
 
@@ -960,6 +1029,88 @@ const revIO = new IntersectionObserver(entries=>{
   });
 },{threshold:0.5});
 revIO.observe(rev);
+
+/* ============ Waterline: gallery, rain, typewriter ============ */
+(function(){
+  const section = document.getElementById('waterline');
+  if(!section) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Gallery (dashes under the screen double as navigation)
+  const screen = document.getElementById('wlScreen');
+  const shot = document.getElementById('wlShot');
+  const shots = screen.dataset.shots.split(',');
+  const dashes = document.getElementById('wlDashes');
+  dashes.innerHTML = shots.map((_, i)=> '<button aria-label="Screenshot '+(i+1)+'"></button>').join('');
+  const dashBtns = [...dashes.children];
+  shots.forEach(src=>{ new Image().src = src; });
+  let wlIndex = 0, wlTimer = null;
+  function showShot(i){
+    wlIndex = (i + shots.length) % shots.length;
+    dashBtns.forEach((d,j)=>d.classList.toggle('on', j===wlIndex));
+    screen.classList.add('is-changing');
+    setTimeout(()=>{ shot.src = shots[wlIndex]; screen.classList.remove('is-changing'); }, 120);
+  }
+  function scheduleShot(){
+    clearTimeout(wlTimer);
+    if(!reduced) wlTimer = setTimeout(()=>{ showShot(wlIndex + 1); scheduleShot(); }, 5000);
+  }
+  dashBtns.forEach((d,i)=>d.addEventListener('click', ()=>{ showShot(i); scheduleShot(); }));
+  screen.addEventListener('click', ()=>{ showShot(wlIndex + 1); scheduleShot(); });
+  showShot(0); scheduleShot();
+
+  // Rain (rendered at half resolution for a lo-fi look)
+  const canvas = document.getElementById('wlRain');
+  const ctx = canvas.getContext('2d');
+  let drops = [], rainOn = false, rafId = 0;
+  function sizeRain(){
+    canvas.width = Math.ceil(section.offsetWidth / 2);
+    canvas.height = Math.ceil(section.offsetHeight / 2);
+    const n = Math.round(canvas.width * canvas.height / 900);
+    drops = Array.from({length:n}, ()=>({
+      x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+      l: 4 + Math.random()*9, v: 4 + Math.random()*5, a: .12 + Math.random()*.3
+    }));
+  }
+  function drawRain(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(const d of drops){
+      ctx.strokeStyle = 'rgba(190,210,220,'+d.a+')';
+      ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - d.l*.18, d.y + d.l); ctx.stroke();
+      d.y += d.v; d.x -= d.v*.18;
+      if(d.y > canvas.height){ d.y = -d.l; d.x = Math.random()*canvas.width*1.1; }
+    }
+    if(rainOn) rafId = requestAnimationFrame(drawRain);
+  }
+  sizeRain(); drawRain();
+  window.addEventListener('resize', sizeRain);
+  if(!reduced){
+    new IntersectionObserver(([e])=>{
+      rainOn = e.isIntersecting;
+      cancelAnimationFrame(rafId);
+      if(rainOn) rafId = requestAnimationFrame(drawRain);
+    }).observe(section);
+  }
+
+  // Typewriter for the HUD line (re-runs after a language switch)
+  const typeEl = document.getElementById('wlType');
+  let typeRun = 0, typed = false;
+  function typeLine(){
+    if(reduced) return;
+    const full = typeEl.textContent;
+    const run = ++typeRun;
+    let i = 0;
+    (function step(){
+      if(run !== typeRun) return;
+      typeEl.textContent = full.slice(0, ++i);
+      if(i < full.length) setTimeout(step, 38);
+    })();
+  }
+  new IntersectionObserver(([e], obs)=>{
+    if(e.isIntersecting){ typed = true; typeLine(); obs.disconnect(); }
+  },{threshold:.6}).observe(typeEl);
+  window.addEventListener('snapjoy-lang', ()=>{ if(typed) typeLine(); });
+})();
 
 /* ============ i18n ============ */
 const I18N = { en: {}, ru: {} };
